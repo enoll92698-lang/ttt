@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen">
+      <h1 class="title">🐍 SNAKE</h1>
+      <p class="subtitle">クラシックスネークゲーム</p>
+      <div class="controls-hint">
+        <div class="hint-item"><span class="key">↑↓←→</span> 移動</div>
+        <div class="hint-item"><span class="key">WASD</span> 移動</div>
+        <div class="hint-item"><span class="key">Space</span> 一時停止</div>
+      </div>
+      <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+      <div id="hud">
+        <div class="hud-item">
+          <span class="hud-label">スコア</span>
+          <span id="score" class="hud-value">0</span>
+        </div>
+        <div class="hud-item center">
+          <span id="level-badge" class="level-badge">Lv.1</span>
+        </div>
+        <div class="hud-item right">
+          <span class="hud-label">ハイスコア</span>
+          <span id="high-score" class="hud-value">0</span>
+        </div>
+      </div>
+      <div id="canvas-wrapper">
+        <canvas id="game-canvas"></canvas>
+        <div id="pause-overlay" class="hidden">
+          <div class="pause-text">⏸ PAUSED</div>
+          <p>Spaceキーで再開</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="screen hidden">
+      <div class="gameover-content">
+        <h2 class="gameover-title">GAME OVER</h2>
+        <div class="result-grid">
+          <div class="result-item">
+            <span class="result-label">スコア</span>
+            <span id="final-score" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">ハイスコア</span>
+            <span id="final-high-score" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">長さ</span>
+            <span id="final-length" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">レベル</span>
+            <span id="final-level" class="result-value">0</span>
+          </div>
+        </div>
+        <div id="new-record" class="new-record hidden">🏆 NEW RECORD!</div>
+        <div class="gameover-buttons">
+          <button id="retry-btn" class="btn btn-primary">もう一度</button>
+          <button id="menu-btn" class="btn btn-secondary">メニューへ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
