@@ -8,21 +8,23 @@
 </head>
 <body>
   <div id="app">
+
     <!-- Start Screen -->
     <div id="start-screen" class="screen">
       <h1 class="title">🐍 SNAKE</h1>
-      <p class="subtitle">クラシックスネークゲーム</p>
+      <canvas id="preview-canvas" class="preview-canvas"></canvas>
+
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="classic">クラシック</button>
+        <button class="mode-btn" data-mode="nowalls">ノーウォール</button>
+        <button class="mode-btn" data-mode="timeattack">タイムアタック</button>
+      </div>
+      <p id="mode-desc" class="mode-desc">壁に当たるとゲームオーバー</p>
+
       <div class="controls-hint">
         <div class="hint-item"><span class="key">↑↓←→</span> 移動</div>
         <div class="hint-item"><span class="key">WASD</span> 移動</div>
         <div class="hint-item"><span class="key">Space</span> 一時停止</div>
-      </div>
-      <div class="start-food-guide">
-        <div class="guide-row"><span class="guide-dot" style="background:#ff6b35"></span><span>通常フード — +10×レベル</span></div>
-        <div class="guide-row"><span class="guide-dot" style="background:#ffd700"></span><span>ゴールド — +30×レベル（時間制限あり）</span></div>
-        <div class="guide-row"><span class="guide-dot" style="background:#00bfff"></span><span>アイスフード — 一時スピードダウン</span></div>
-        <div class="guide-row"><span class="guide-dot" style="background:#c084fc"></span><span>シュリンクフード — 尾を短縮</span></div>
-        <div class="guide-row"><span class="obstacle-icon">⬛</span><span>障害物 — Lv.3以降に出現</span></div>
       </div>
       <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
     </div>
@@ -36,11 +38,13 @@
         </div>
         <div class="hud-item center">
           <span id="level-badge" class="level-badge">Lv.1</span>
+          <span id="timer-badge" class="timer-badge hidden">⏱ 60</span>
         </div>
         <div class="hud-item right">
           <span class="hud-label">ハイスコア</span>
           <span id="high-score" class="hud-value">0</span>
         </div>
+        <button id="mute-btn" class="mute-btn" title="ミュート">🔊</button>
       </div>
       <div id="canvas-wrapper">
         <canvas id="game-canvas"></canvas>
@@ -50,21 +54,21 @@
         </div>
       </div>
       <div id="effect-bar">
-        <div id="effect-slow" class="effect-tag hidden">❄️ スロー</div>
+        <div id="effect-slow"  class="effect-tag hidden">❄️ スロー中</div>
         <div id="effect-combo" class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
       </div>
       <div id="food-legend">
-        <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常 +10</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>ゴールド ×3</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>ゴールド×3</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー❄</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク−3</div>
       </div>
     </div>
 
     <!-- Game Over Screen -->
     <div id="gameover-screen" class="screen hidden">
       <div class="gameover-content">
-        <h2 class="gameover-title">GAME OVER</h2>
+        <h2 class="gameover-title" id="gameover-title">GAME OVER</h2>
         <div class="result-grid">
           <div class="result-item">
             <span class="result-label">スコア</span>
@@ -90,8 +94,8 @@
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
   <script src="game.js"></script>
 </body>
 </html>
