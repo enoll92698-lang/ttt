@@ -17,6 +17,13 @@
         <div class="hint-item"><span class="key">WASD</span> 移動</div>
         <div class="hint-item"><span class="key">Space</span> 一時停止</div>
       </div>
+      <div class="start-food-guide">
+        <div class="guide-row"><span class="guide-dot" style="background:#ff6b35"></span><span>通常フード — +10×レベル</span></div>
+        <div class="guide-row"><span class="guide-dot" style="background:#ffd700"></span><span>ゴールド — +30×レベル（時間制限あり）</span></div>
+        <div class="guide-row"><span class="guide-dot" style="background:#00bfff"></span><span>アイスフード — 一時スピードダウン</span></div>
+        <div class="guide-row"><span class="guide-dot" style="background:#c084fc"></span><span>シュリンクフード — 尾を短縮</span></div>
+        <div class="guide-row"><span class="obstacle-icon">⬛</span><span>障害物 — Lv.3以降に出現</span></div>
+      </div>
       <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
     </div>
 
@@ -41,6 +48,16 @@
           <div class="pause-text">⏸ PAUSED</div>
           <p>Spaceキーで再開</p>
         </div>
+      </div>
+      <div id="effect-bar">
+        <div id="effect-slow" class="effect-tag hidden">❄️ スロー</div>
+        <div id="effect-combo" class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
+      </div>
+      <div id="food-legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常 +10</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>ゴールド ×3</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク</div>
       </div>
     </div>
 

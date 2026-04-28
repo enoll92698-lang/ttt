@@ -313,6 +313,90 @@ body {
   padding: 12px;
 }
 
+/* ── Effect bar ── */
+#effect-bar {
+  display: flex;
+  gap: 8px;
+  min-height: 28px;
+}
+
+.effect-tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: #00bfff;
+  animation: tag-in 0.2s ease;
+}
+
+.combo-tag {
+  color: #ff9500;
+  border-color: #ff9500;
+  background: rgba(255, 149, 0, 0.1);
+}
+
+@keyframes tag-in {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Food legend ── */
+#food-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Start screen food guide ── */
+.start-food-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  width: min(380px, 90vw);
+}
+
+.guide-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.guide-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.obstacle-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
 /* ── Mobile touch controls ── */
 #touch-controls {
   display: none;
