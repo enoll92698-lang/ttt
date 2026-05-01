@@ -14,12 +14,26 @@
       <h1 class="title">🐍 SNAKE</h1>
       <canvas id="preview-canvas" class="preview-canvas"></canvas>
 
-      <div class="mode-selector">
-        <button class="mode-btn active" data-mode="classic">クラシック</button>
-        <button class="mode-btn" data-mode="nowalls">ノーウォール</button>
-        <button class="mode-btn" data-mode="timeattack">タイムアタック</button>
+      <div class="selector-group">
+        <div class="selector-label">モード</div>
+        <div class="mode-selector">
+          <button class="mode-btn active" data-mode="classic">クラシック</button>
+          <button class="mode-btn" data-mode="nowalls">ノーウォール</button>
+          <button class="mode-btn" data-mode="timeattack">タイムアタック</button>
+        </div>
       </div>
+
+      <div class="selector-group">
+        <div class="selector-label">難易度</div>
+        <div class="diff-selector">
+          <button class="diff-btn" data-diff="easy">かんたん</button>
+          <button class="diff-btn active" data-diff="normal">ふつう</button>
+          <button class="diff-btn" data-diff="hard">むずかしい</button>
+        </div>
+      </div>
+
       <p id="mode-desc" class="mode-desc">壁に当たるとゲームオーバー</p>
+      <p id="current-best" class="current-best">ベスト: 0</p>
 
       <div class="controls-hint">
         <div class="hint-item"><span class="key">↑↓←→</span> 移動</div>
@@ -54,14 +68,16 @@
         </div>
       </div>
       <div id="effect-bar">
-        <div id="effect-slow"  class="effect-tag hidden">❄️ スロー中</div>
-        <div id="effect-combo" class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
+        <div id="effect-slow"   class="effect-tag hidden">❄️ スロー中</div>
+        <div id="effect-shield" class="effect-tag shield-tag hidden">🛡 シールド</div>
+        <div id="effect-combo"  class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
       </div>
       <div id="food-legend">
         <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常</div>
         <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>ゴールド×3</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー❄</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク−3</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#00ffcc"></span>シールド🛡</div>
       </div>
     </div>
 
@@ -88,6 +104,15 @@
           </div>
         </div>
         <div id="new-record" class="new-record hidden">🏆 NEW RECORD!</div>
+
+        <div id="leaderboard" class="leaderboard">
+          <div class="lb-header">
+            <span class="lb-title">ランキング</span>
+            <span id="lb-mode-label" class="lb-mode-label"></span>
+          </div>
+          <div id="lb-list" class="lb-list"></div>
+        </div>
+
         <div class="gameover-buttons">
           <button id="retry-btn" class="btn btn-primary">もう一度</button>
           <button id="menu-btn" class="btn btn-secondary">メニューへ</button>
