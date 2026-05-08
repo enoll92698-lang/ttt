@@ -23,17 +23,38 @@
         </div>
       </div>
 
-      <div class="selector-group">
-        <div class="selector-label">難易度</div>
-        <div class="diff-selector">
-          <button class="diff-btn" data-diff="easy">かんたん</button>
-          <button class="diff-btn active" data-diff="normal">ふつう</button>
-          <button class="diff-btn" data-diff="hard">むずかしい</button>
+      <div class="two-col-selectors">
+        <div class="selector-group">
+          <div class="selector-label">難易度</div>
+          <div class="diff-selector">
+            <button class="diff-btn" data-diff="easy">かんたん</button>
+            <button class="diff-btn active" data-diff="normal">ふつう</button>
+            <button class="diff-btn" data-diff="hard">むずかしい</button>
+          </div>
+        </div>
+        <div class="selector-group">
+          <div class="selector-label">スキン</div>
+          <div class="skin-selector">
+            <button class="skin-btn active" data-skin="neon"  title="ネオン"></button>
+            <button class="skin-btn"        data-skin="fire"  title="ファイア"></button>
+            <button class="skin-btn"        data-skin="ice"   title="アイス"></button>
+            <button class="skin-btn"        data-skin="gold"  title="ゴールド"></button>
+          </div>
         </div>
       </div>
 
-      <p id="mode-desc" class="mode-desc">壁に当たるとゲームオーバー</p>
-      <p id="current-best" class="current-best">ベスト: 0</p>
+      <div class="info-row">
+        <p id="mode-desc" class="mode-desc">壁に当たるとゲームオーバー</p>
+        <p id="current-best" class="current-best">ベスト: ---</p>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-chip">🎮 <strong id="stat-games">0</strong></div>
+        <div class="stat-chip">🔥 ×<strong id="stat-combo">0</strong></div>
+        <div class="stat-chip">📏 <strong id="stat-length">0</strong></div>
+      </div>
+
+      <div id="ach-badges" class="ach-badges"></div>
 
       <div class="controls-hint">
         <div class="hint-item"><span class="key">↑↓←→</span> 移動</div>
@@ -74,10 +95,10 @@
       </div>
       <div id="food-legend">
         <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>ゴールド×3</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>ゴールド</div>
         <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー</div>
         <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#00ffcc"></span>シールド🛡</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#00ffcc"></span>シールド</div>
       </div>
     </div>
 
@@ -117,10 +138,15 @@
           <button id="retry-btn" class="btn btn-primary">もう一度</button>
           <button id="menu-btn" class="btn btn-secondary">メニューへ</button>
         </div>
+        <p class="restart-hint"><span class="key">R</span> でも再スタート</p>
       </div>
     </div>
 
   </div>
+
+  <!-- Achievement toast container (outside #app so it's always on top) -->
+  <div id="toast-container"></div>
+
   <script src="game.js"></script>
 </body>
 </html>
