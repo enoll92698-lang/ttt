@@ -92,6 +92,7 @@
         <div id="effect-slow"   class="effect-tag hidden">❄️ スロー中</div>
         <div id="effect-shield" class="effect-tag shield-tag hidden">🛡 シールド</div>
         <div id="effect-combo"  class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
+        <div id="effect-boost" class="effect-tag boost-tag hidden">⚡ ブースト中</div>
       </div>
       <div id="food-legend">
         <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常</div>
@@ -99,6 +100,7 @@
         <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー</div>
         <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク</div>
         <div class="legend-item"><span class="legend-dot" style="background:#00ffcc"></span>シールド</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#aaff00"></span>ブースト</div>
       </div>
     </div>
 
@@ -146,6 +148,11 @@
 
   <!-- Achievement toast container (outside #app so it's always on top) -->
   <div id="toast-container"></div>
+
+  <!-- Animated background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
 
   <script src="game.js"></script>
 </body>

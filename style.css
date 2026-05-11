@@ -287,6 +287,7 @@ body {
 }
 .combo-tag  { color:#ff9500; border-color:#ff9500; background:rgba(255,149,0,0.08); }
 .shield-tag { color:#00ffcc; border-color:#00ffcc; background:rgba(0,255,204,0.08); }
+.boost-tag  { color:#aaff00; border-color:#aaff00; background:rgba(170,255,0,0.08); }
 @keyframes tag-in { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
 
 /* ── Food legend ── */
@@ -373,6 +374,42 @@ body {
 .ach-toast-label { font-size: 0.58rem; color: #ffd700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
 .ach-toast-name { font-size: 0.84rem; font-weight: 700; color: var(--text); }
 .ach-toast-desc { font-size: 0.7rem; color: var(--text-dim); }
+
+/* ── Animated background orbs ── */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+  animation: orb-float 14s ease-in-out infinite;
+}
+.bg-orb-1 {
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, #00ff88 0%, transparent 70%);
+  top: 8%; left: 4%;
+  animation-duration: 16s;
+}
+.bg-orb-2 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+  top: 55%; right: 6%;
+  animation-duration: 20s;
+  animation-delay: -6s;
+}
+.bg-orb-3 {
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, #ff6b35 0%, transparent 70%);
+  bottom: 12%; left: 28%;
+  animation-duration: 24s;
+  animation-delay: -12s;
+}
+@keyframes orb-float {
+  0%,100% { transform: translate(0, 0)   scale(1);    }
+  33%     { transform: translate(35px,-45px) scale(1.12); }
+  66%     { transform: translate(-25px,22px) scale(0.94); }
+}
 
 /* ── Mobile touch controls ── */
 #touch-controls {

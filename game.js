@@ -11,6 +11,8 @@ const OPPOSITE = { UP:'DOWN', DOWN:'UP', LEFT:'RIGHT', RIGHT:'LEFT' };
 
 const FOODS_PER_LVL = 5, COMBO_WINDOW = 5000, SLOW_DURATION = 5000;
 const GOLD_TTL = 8000, SHRINK_AMT = 3, TIME_ATTACK_SECS = 60;
+const BOOST_DURATION = 5000;
+const MILESTONES = [500, 1000, 2000, 5000, 10000];
 
 // ── Skins ──────────────────────────────────────────────────────────────────
 const SKINS = {
@@ -34,6 +36,7 @@ const FOOD_TYPES = {
   slow:   { color:'#00bfff', glow:'rgba(0,191,255,0.4)',   pts:15, label:'❄'  },
   shrink: { color:'#c084fc', glow:'rgba(192,132,252,0.4)', pts:20, label:'−3' },
   shield: { color:'#00ffcc', glow:'rgba(0,255,204,0.4)',   pts:5,  label:'🛡' },
+  boost:  { color:'#aaff00', glow:'rgba(170,255,0,0.4)',   pts:20, label:'⚡' },
 };
 
 const MODE_DESC = {
@@ -85,6 +88,9 @@ function sfxTimeUp()      { [523,392,330,262].forEach((f,i)=>playTone(f,'square'
 function sfxCountdown()   { playTone(660,'sine',0.12,0.20); }
 function sfxGo()          { [523,659,784].forEach((f,i)=>playTone(f,'sine',0.18,0.25,i*0.04)); }
 function sfxAchievement() { [523,784,1047].forEach((f,i)=>playTone(f,'sine',0.14,0.18,i*0.06)); }
+function sfxBoost()       { [440,550,660,880].forEach((f,i)=>playTone(f,'sawtooth',0.10,0.15,i*0.03)); }
+function sfxMilestone()   { [523,659,784,1047,1319].forEach((f,i)=>playTone(f,'sine',0.18,0.22,i*0.06)); }
+function sfxNewRecord()   { [784,988,1175,1319].forEach((f,i)=>playTone(f,'sine',0.16,0.20,i*0.07)); }
 
 // ── BGM ────────────────────────────────────────────────────────────────────
 const BGM=[
@@ -116,12 +122,13 @@ function stopBGM()  { bgmRunning=false; clearTimeout(bgmTimer); }
 let gameMode='classic', difficulty='normal', skin='neon';
 let snake, dir, nextDir, food, score, highScore, level, foodCount;
 let obstacles=[], particles=[], floats=[];
-let slowUntil=0, shielded=false, combo=1, comboTimer=null;
+let slowUntil=0, boostUntil=0, shielded=false, combo=1, comboTimer=null;
 let maxComboThisGame=1, maxLengthThisGame=3;
 let goldEatenThisGame=0, shieldSavesThisGame=0;
 let timeLeft=TIME_ATTACK_SECS, timerId=null;
 let gameRunning=false, paused=false, animFrame=null, lastTick=0;
 let foodPulse=0, cdVal=-1, cdPulse=0;
+let initialHighScore=0, newRecordShown=false, nextMilestone=0;
 
 // ── DOM ────────────────────────────────────────────────────────────────────
 const startScreen   =document.getElementById('start-screen');
@@ -142,6 +149,7 @@ const newRecord     =document.getElementById('new-record');
 const effectSlow    =document.getElementById('effect-slow');
 const effectShield  =document.getElementById('effect-shield');
 const effectCombo   =document.getElementById('effect-combo');
+const effectBoost   =document.getElementById('effect-boost');
 const comboCount    =document.getElementById('combo-count');
 const canvasWrapper =document.getElementById('canvas-wrapper');
 const muteBtnEl     =document.getElementById('mute-btn');
@@ -353,9 +361,10 @@ function rainbowColor(i){
 }
 function drawSnake(){
   const sk=SKINS[skin];
-  const isSlow=performance.now()<slowUntil;
+  const now=performance.now();
+  const isSlow=now<slowUntil, isBoost=now<boostUntil;
   const isRainbow=combo>=5;
-  const headColor=isRainbow?rainbowColor(0):(isSlow?'#00e5ff':sk.head);
+  const headColor=isRainbow?rainbowColor(0):(isBoost?'#aaff00':(isSlow?'#00e5ff':sk.head));
   for(let i=snake.length-1;i>=0;i--){
     const seg=snake[i];
     if(i===0){
@@ -379,6 +388,7 @@ function drawSnake(){
       const t=i/(snake.length-1);
       let color;
       if(isRainbow)     color=rainbowColor(i);
+      else if(isBoost)  color=i<snake.length*0.4?'#88cc00':'#557700';
       else if(isSlow)   color=i<snake.length*0.4?'#0099cc':'#006699';
       else              color=i<snake.length*0.4?sk.body:sk.tail;
       ctx.globalAlpha=Math.max(0.35,1-t*0.55);
@@ -406,6 +416,23 @@ function drawFloats(){
     return true;
   });
 }
+function drawSpeedLines(){
+  if(performance.now()>=boostUntil) return;
+  const head=snake[0];
+  const cx=head.x*CELL+CELL/2, cy=head.y*CELL+CELL/2;
+  const d=dir;
+  ctx.save();ctx.strokeStyle='#aaff00';ctx.lineWidth=1.5;ctx.globalAlpha=0.55;
+  for(let i=0;i<4;i++){
+    const offset=(i-1.5)*4;
+    const perpX=d.y*offset, perpY=-d.x*offset;
+    const len=18+Math.random()*14;
+    const x1=cx+perpX-d.x*CELL*0.6, y1=cy+perpY-d.y*CELL*0.6;
+    const x2=x1-d.x*len, y2=y1-d.y*len;
+    ctx.shadowColor='#aaff00';ctx.shadowBlur=6;
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  }
+  ctx.restore();
+}
 function drawCountdown(){
   if(cdVal<0) return;
   cdPulse+=0.18;
@@ -417,7 +444,7 @@ function drawCountdown(){
 }
 function render(){
   drawGrid();drawPortalEdges();drawObstacles();
-  drawParticles();drawFloats();drawFood();drawSnake();drawCountdown();
+  drawParticles();drawFloats();drawFood();drawSpeedLines();drawSnake();drawCountdown();
 }
 
 // ── Game logic ─────────────────────────────────────────────────────────────
@@ -439,6 +466,7 @@ function pickFoodType(){
     ['slow',  level>=3?13:0],
     ['shrink',level>=5?9:0],
     ['shield',5],
+    ['boost', 8],
   ];
   const total=weights.reduce((s,[,w])=>s+w,0);
   let r=Math.random()*total;
@@ -455,8 +483,9 @@ function initGame(){
   snake=[{x:mid,y:mid},{x:mid-1,y:mid},{x:mid-2,y:mid}];
   dir=DIRS.RIGHT; nextDir=DIRS.RIGHT;
   obstacles=[];particles=[];floats=[];
-  slowUntil=0;shielded=false;combo=1;score=0;level=1;foodCount=0;paused=false;
+  slowUntil=0;boostUntil=0;shielded=false;combo=1;score=0;level=1;foodCount=0;paused=false;
   maxComboThisGame=1;maxLengthThisGame=3;goldEatenThisGame=0;shieldSavesThisGame=0;
+  newRecordShown=false;nextMilestone=MILESTONES[0];
   clearTimeout(comboTimer);comboTimer=null;
   spawnFood();
   if(gameMode==='timeattack'){
@@ -507,6 +536,7 @@ function tick(){
       case 'slow':   slowUntil=performance.now()+SLOW_DURATION; sfxSlow(); break;
       case 'shrink': for(let i=0;i<SHRINK_AMT&&snake.length>3;i++) snake.pop(); sfxShrink(); break;
       case 'shield': shielded=true; sfxShield(); break;
+      case 'boost':  boostUntil=performance.now()+BOOST_DURATION; sfxBoost(); break;
       default:       sfxEat();
     }
     clearTimeout(comboTimer);
@@ -520,6 +550,12 @@ function tick(){
       if(level>prev){sfxLevelUp();spawnFloat(Math.floor(GRID/2),Math.floor(GRID/2),`LEVEL ${level}!`,'#a855f7');}
     }
     if(score>highScore) highScore=score;
+    checkMilestone(score);
+    if(score>initialHighScore&&!newRecordShown){
+      newRecordShown=true;
+      spawnFloat(Math.floor(GRID/2),Math.floor(GRID/2)+2,'🏆 NEW RECORD!','#ffd700');
+      sfxNewRecord();
+    }
     spawnFood();updateHUD();updateEffectBar();
     checkAchievements();
   } else {
@@ -530,7 +566,10 @@ function tick(){
 function getSpeed(){
   const d=DIFFS[difficulty];
   const base=Math.max(50,d.speed-(level-1)*d.step);
-  return performance.now()<slowUntil?base*2:base;
+  const now=performance.now();
+  if(now<slowUntil)  return base*2;
+  if(now<boostUntil) return Math.max(40,Math.floor(base*0.55));
+  return base;
 }
 function updateHUD(){
   scoreEl.textContent=score; highScoreEl.textContent=highScore; levelBadge.textContent=`Lv.${level}`;
@@ -539,10 +578,21 @@ function updateTimerDisplay(){
   timerBadge.textContent=`⏱ ${timeLeft}`; timerBadge.classList.toggle('urgent',timeLeft<=10);
 }
 function updateEffectBar(){
-  effectSlow.classList.toggle  ('hidden',!(performance.now()<slowUntil));
+  const now=performance.now();
+  effectSlow.classList.toggle  ('hidden',!(now<slowUntil));
   effectShield.classList.toggle('hidden',!shielded);
   effectCombo.classList.toggle ('hidden',combo<2);
+  effectBoost.classList.toggle ('hidden',!(now<boostUntil));
   if(combo>=2) comboCount.textContent=combo;
+}
+function checkMilestone(s){
+  if(nextMilestone===0) return;
+  if(s>=nextMilestone){
+    spawnFloat(Math.floor(GRID/2),Math.floor(GRID/2)-2,`${nextMilestone.toLocaleString()} pts!`,'#ffd700');
+    sfxMilestone();
+    const idx=MILESTONES.indexOf(nextMilestone);
+    nextMilestone=idx+1<MILESTONES.length?MILESTONES[idx+1]:0;
+  }
 }
 function startTimerCountdown(){
   clearInterval(timerId);
@@ -587,6 +637,7 @@ function showScreen(name){
 function startGame(){
   stopPreview();
   highScore=loadHS(); highScoreEl.textContent=highScore;
+  initialHighScore=highScore;
   initGame(); gameRunning=false;
   showScreen('game'); lastTick=performance.now();
   startTickLoop(); startCountdown();
