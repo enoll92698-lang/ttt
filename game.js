@@ -14,6 +14,20 @@ const GOLD_TTL = 8000, SHRINK_AMT = 3, TIME_ATTACK_SECS = 60;
 const BOOST_DURATION = 5000;
 const MILESTONES = [500, 1000, 2000, 5000, 10000];
 
+const WORLD_RANKING_KEY = 'snakeWorldRanking';
+const SAKURA_DATA = [
+  { name:'🐍 蛇神キング',        score:25400 },
+  { name:'⚡ ネオンドラゴン',     score:21800 },
+  { name:'🌈 レインボーマスター', score:17200 },
+  { name:'🔥 炎の蛇使い',        score:13600 },
+  { name:'🛡 鉄壁ガード',        score:10900 },
+  { name:'⭐ ゴールドハンター',   score:8750  },
+  { name:'📏 大蛇の覇者',        score:6300  },
+  { name:'🎯 スコアハンター',     score:4800  },
+  { name:'💨 スピードキング',     score:3500  },
+  { name:'🏆 チャレンジャー',     score:2100  },
+];
+
 // ── Skins ──────────────────────────────────────────────────────────────────
 const SKINS = {
   neon: { head:'#00ff88', body:'#00cc6a', tail:'#008844' },
@@ -153,6 +167,10 @@ const effectBoost   =document.getElementById('effect-boost');
 const comboCount    =document.getElementById('combo-count');
 const canvasWrapper =document.getElementById('canvas-wrapper');
 const muteBtnEl     =document.getElementById('mute-btn');
+const wrList        =document.getElementById('wr-list');
+const wrYourRank    =document.getElementById('wr-your-rank');
+const wrModal       =document.getElementById('wr-modal');
+const wrModalList   =document.getElementById('wr-modal-list');
 const gameoverTitle =document.getElementById('gameover-title');
 const currentBestEl =document.getElementById('current-best');
 const toastContainer=document.getElementById('toast-container');
@@ -271,6 +289,58 @@ function renderLeaderboard(newScore) {
       <span class="lb-pts">${s.toLocaleString()}</span>
     </div>`).join('');
 }
+// ── World ranking ──────────────────────────────────────────────────────────
+function initWorldRanking() {
+  if (!localStorage.getItem(WORLD_RANKING_KEY))
+    localStorage.setItem(WORLD_RANKING_KEY, JSON.stringify(SAKURA_DATA));
+}
+function getWorldRanking() {
+  try { return JSON.parse(localStorage.getItem(WORLD_RANKING_KEY)||'[]'); }
+  catch(_) { return [...SAKURA_DATA]; }
+}
+function addScoreToWorld(s) {
+  if (s<=0) return;
+  const ranking=getWorldRanking();
+  const existing=ranking.find(e=>e.isPlayer);
+  if (existing) { if (s>existing.score) existing.score=s; }
+  else ranking.push({name:'👤 あなた', score:s, isPlayer:true});
+  ranking.sort((a,b)=>b.score-a.score);
+  localStorage.setItem(WORLD_RANKING_KEY,JSON.stringify(ranking.slice(0,20)));
+}
+function renderWorldRankingEntries(listEl, rankLabelEl) {
+  const ranking=getWorldRanking();
+  const medals=['🥇','🥈','🥉'];
+  const top10=ranking.slice(0,10);
+  let html=top10.map((e,i)=>
+    `<div class="lb-item${e.isPlayer?' wr-you':''}">
+      <span class="lb-rank">${medals[i]||(i+1)+'.'}</span>
+      <span class="wr-name">${e.name}</span>
+      <span class="lb-pts">${e.score.toLocaleString()}</span>
+    </div>`).join('');
+  const pi=ranking.findIndex(e=>e.isPlayer);
+  if (pi>=10) {
+    const pe=ranking[pi];
+    html+=`<div class="lb-dots">・・・</div>
+    <div class="lb-item wr-you">
+      <span class="lb-rank">${pi+1}.</span>
+      <span class="wr-name">${pe.name}</span>
+      <span class="lb-pts">${pe.score.toLocaleString()}</span>
+    </div>`;
+  }
+  if (rankLabelEl) rankLabelEl.textContent=pi>=0?`あなた: ${pi+1}位`:'';
+  listEl.innerHTML=html;
+}
+function renderWorldRankingModal() {
+  const ranking=getWorldRanking();
+  const medals=['🥇','🥈','🥉'];
+  wrModalList.innerHTML=ranking.map((e,i)=>
+    `<div class="lb-item${e.isPlayer?' wr-you':''}">
+      <span class="lb-rank">${medals[i]||(i+1)+'.'}</span>
+      <span class="wr-name">${e.name}</span>
+      <span class="lb-pts">${e.score.toLocaleString()}</span>
+    </div>`).join('');
+}
+
 function updateCurrentBest() {
   const best=loadHS();
   currentBestEl.textContent=best>0?`ベスト: ${best.toLocaleString()}`:'ベスト: ---';
@@ -647,19 +717,27 @@ function endGame(reason='collision'){
   if(reason!=='timeout') triggerShake();
   reason==='timeout'?sfxTimeUp():sfxGameOver();
   if(score>highScore){highScore=score;saveHS();}
-  commitStats(); addToLeaderboard(score);
+  commitStats(); addToLeaderboard(score); addScoreToWorld(score);
   render();
   finalScore.textContent=score; finalHighScore.textContent=highScore;
   finalLength.textContent=snake.length; finalLevel.textContent=level;
   gameoverTitle.textContent=reason==='timeout'?'TIME UP!':'GAME OVER';
   newRecord.classList.toggle('hidden',!(score>0&&score===highScore&&foodCount>0));
   renderLeaderboard(score);
+  renderWorldRankingEntries(wrList, wrYourRank);
   setTimeout(()=>showScreen('gameover'),450);
 }
 function togglePause(){
   if(!gameRunning) return;
   paused=!paused; pauseOverlay.classList.toggle('hidden',!paused);
   if(paused) stopBGM(); else startBGM();
+}
+function quitToMenu(){
+  gameRunning=false; stopLoop(); clearInterval(timerId); stopBGM();
+  paused=false; pauseOverlay.classList.add('hidden');
+  if(score>highScore){highScore=score;saveHS();}
+  commitStats(); addScoreToWorld(score);
+  showScreen('start'); updateCurrentBest(); updateStatsBar(); initPreview();
 }
 
 // ── Input ──────────────────────────────────────────────────────────────────
@@ -723,6 +801,14 @@ document.getElementById('menu-btn').addEventListener('click',()=>{
   showScreen('start'); stopLoop(); stopBGM(); gameRunning=false;
   updateCurrentBest(); updateStatsBar(); initPreview();
 });
+document.getElementById('quit-btn').addEventListener('click',quitToMenu);
+document.getElementById('world-ranking-btn').addEventListener('click',()=>{
+  renderWorldRankingModal(); wrModal.classList.remove('hidden');
+});
+document.getElementById('wr-modal-close').addEventListener('click',()=>{
+  wrModal.classList.add('hidden');
+});
+wrModal.addEventListener('click',e=>{ if(e.target===wrModal) wrModal.classList.add('hidden'); });
 
 // ── Preview animation ──────────────────────────────────────────────────────
 const PV_GRID=10, PV_CELL=13;
@@ -780,6 +866,7 @@ function initPreview(){
 function stopPreview(){ if(pvAnim){cancelAnimationFrame(pvAnim);pvAnim=null;} }
 
 // ── Boot ───────────────────────────────────────────────────────────────────
+initWorldRanking();
 updateCurrentBest();
 updateStatsBar();
 updateAchievementBadges();

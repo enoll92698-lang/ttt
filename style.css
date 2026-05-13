@@ -198,6 +198,7 @@ body {
   transition: transform 0.1s, box-shadow 0.2s;
 }
 .btn:active { transform: scale(0.96); }
+.btn-sm { padding: 7px 20px; font-size: 0.84rem; }
 .btn-primary {
   background: var(--accent); color: #000;
   box-shadow: 0 4px 20px rgba(0,255,136,0.4);
@@ -347,6 +348,42 @@ body {
 .lb-item .lb-pts  { font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
 .lb-item.lb-new   { border: 1px solid #ffd700; }
 .lb-empty { font-size: 0.76rem; color: var(--text-dim); text-align: center; padding: 5px 0; }
+
+/* ── World ranking ── */
+.wr-you  { border: 1px solid #ffd700 !important; background: rgba(255,215,0,0.07) !important; }
+.wr-name { flex: 1; font-size: 0.8rem; color: var(--text); padding: 0 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.lb-dots { text-align: center; color: var(--text-dim); font-size: 0.78rem; padding: 3px 0; letter-spacing: 0.2em; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 500;
+  backdrop-filter: blur(4px);
+}
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  width: min(380px, 90vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 0 60px rgba(0,0,0,0.5);
+}
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.modal-title  { font-size: 1rem; font-weight: 700; color: var(--text); }
+.modal-close  {
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; padding: 2px 8px;
+  font-size: 0.85rem; color: var(--text-dim); cursor: pointer;
+  transition: background 0.1s;
+}
+.modal-close:hover { background: var(--border); color: var(--text); }
 
 .gameover-buttons { display: flex; gap: 10px; width: 100%; }
 .gameover-buttons .btn { flex: 1; padding: 10px; }
