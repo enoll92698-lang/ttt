@@ -2,8 +2,14 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snake Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a1a" />
+  <meta name="description" content="スタイリッシュなスネークゲーム。4スキン・3モード・実績・世界ランキング搭載！" />
+  <meta property="og:title" content="🐍 SNAKE GAME" />
+  <meta property="og:description" content="スタイリッシュなスネークゲーム。4スキン・3モード・実績・世界ランキング搭載！" />
+  <meta property="og:type" content="website" />
+  <title>🐍 SNAKE GAME</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -56,13 +62,17 @@
 
       <div id="ach-badges" class="ach-badges"></div>
 
-      <div class="controls-hint">
+      <div class="controls-hint desktop-only">
         <div class="hint-item"><span class="key">↑↓←→</span> 移動</div>
         <div class="hint-item"><span class="key">WASD</span> 移動</div>
         <div class="hint-item"><span class="key">Space</span> 一時停止</div>
+        <div class="hint-item"><span class="key">R</span> 再スタート</div>
       </div>
-      <button id="world-ranking-btn" class="btn btn-secondary btn-sm">🌍 世界ランキング</button>
-      <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
+
+      <div class="start-actions">
+        <button id="world-ranking-btn" class="btn btn-secondary btn-sm">🌍 世界ランキング</button>
+        <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
+      </div>
     </div>
 
     <!-- Game Screen -->
@@ -86,15 +96,18 @@
         <canvas id="game-canvas"></canvas>
         <div id="pause-overlay" class="hidden">
           <div class="pause-text">⏸ PAUSED</div>
-          <p>Spaceキーで再開</p>
-          <button id="quit-btn" class="btn btn-secondary btn-sm">メニューへ戻る</button>
+          <p class="desktop-only">Spaceキーで再開</p>
+          <div class="pause-actions">
+            <button id="resume-btn" class="btn btn-primary btn-sm">再開</button>
+            <button id="quit-btn" class="btn btn-secondary btn-sm">メニューへ</button>
+          </div>
         </div>
       </div>
       <div id="effect-bar">
         <div id="effect-slow"   class="effect-tag hidden">❄️ スロー中</div>
         <div id="effect-shield" class="effect-tag shield-tag hidden">🛡 シールド</div>
         <div id="effect-combo"  class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
-        <div id="effect-boost" class="effect-tag boost-tag hidden">⚡ ブースト中</div>
+        <div id="effect-boost"  class="effect-tag boost-tag hidden">⚡ ブースト中</div>
       </div>
       <div id="food-legend">
         <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常</div>
@@ -150,13 +163,13 @@
           <button id="retry-btn" class="btn btn-primary">もう一度</button>
           <button id="menu-btn" class="btn btn-secondary">メニューへ</button>
         </div>
-        <p class="restart-hint"><span class="key">R</span> でも再スタート</p>
+        <p class="restart-hint desktop-only"><span class="key">R</span> でも再スタート</p>
       </div>
     </div>
 
   </div>
 
-  <!-- Achievement toast container (outside #app so it's always on top) -->
+  <!-- Achievement toast container -->
   <div id="toast-container"></div>
 
   <!-- Animated background orbs -->

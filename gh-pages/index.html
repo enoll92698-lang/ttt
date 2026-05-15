@@ -2,8 +2,14 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snake Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a1a" />
+  <meta name="description" content="スタイリッシュなスネークゲーム。4スキン・3モード・実績・世界ランキング搭載！" />
+  <meta property="og:title" content="🐍 SNAKE GAME" />
+  <meta property="og:description" content="スタイリッシュなスネークゲーム。4スキン・3モード・実績・世界ランキング搭載！" />
+  <meta property="og:type" content="website" />
+  <title>🐍 SNAKE GAME</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
   <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -161,14 +167,8 @@ body {
   filter: grayscale(1) brightness(0.35);
   transition: filter 0.4s, transform 0.3s;
   cursor: default; user-select: none;
-  title: attr(title);
 }
-.ach-badge.unlocked {
-  filter: none;
-}
-.ach-badge.just-unlocked {
-  animation: badge-pop 0.5s ease;
-}
+.ach-badge.unlocked { filter: none; }
 @keyframes badge-pop {
   0%   { transform: scale(1);   }
   40%  { transform: scale(1.5); }
@@ -196,13 +196,18 @@ body {
   color: var(--accent);
 }
 
+/* ── Start actions ── */
+.start-actions {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center;
+}
+
 /* ── Buttons ── */
 .btn {
   padding: 11px 34px;
   border: none; border-radius: 10px;
   font-size: 1rem; font-weight: 700;
   cursor: pointer; letter-spacing: 0.08em;
-  transition: transform 0.1s, box-shadow 0.2s;
+  transition: transform 0.1s, box-shadow 0.2s, opacity 0.1s;
 }
 .btn:active { transform: scale(0.96); }
 .btn-sm { padding: 7px 20px; font-size: 0.84rem; }
@@ -216,6 +221,10 @@ body {
   border: 2px solid var(--border);
 }
 .btn-secondary:hover { border-color: var(--text-dim); }
+
+/* ── Desktop-only elements ── */
+.desktop-only { display: flex; }
+@media (pointer: coarse) { .desktop-only { display: none !important; } }
 
 /* ── HUD ── */
 #game-screen { gap: 8px; }
@@ -277,13 +286,14 @@ body {
 /* ── Pause overlay ── */
 #pause-overlay {
   position: absolute; inset: 0;
-  background: rgba(10,10,26,0.85);
-  backdrop-filter: blur(4px);
+  background: rgba(10,10,26,0.88);
+  backdrop-filter: blur(6px);
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 12px;
+  align-items: center; justify-content: center; gap: 14px;
 }
 .pause-text { font-size: 2.2rem; font-weight: 900; color: var(--accent); letter-spacing: 0.15em; }
 #pause-overlay p { color: var(--text-dim); font-size: 0.84rem; }
+.pause-actions { display: flex; gap: 10px; }
 
 /* ── Effect bar ── */
 #effect-bar { display: flex; gap: 6px; min-height: 22px; }
@@ -313,6 +323,11 @@ body {
   width: min(400px, 92vw);
   box-shadow: 0 0 60px rgba(255,107,53,0.12);
   max-height: 92vh; overflow-y: auto;
+  animation: gameover-in 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes gameover-in {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 .gameover-title {
   font-size: 2.1rem; font-weight: 900; color: var(--accent2);
@@ -368,7 +383,9 @@ body {
   display: flex; align-items: center; justify-content: center;
   z-index: 500;
   backdrop-filter: blur(4px);
+  animation: fade-in 0.2s ease;
 }
+@keyframes fade-in { from{opacity:0;} to{opacity:1;} }
 .modal-box {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -378,6 +395,11 @@ body {
   max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 0 60px rgba(0,0,0,0.5);
+  animation: modal-in 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
 }
 .modal-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -458,39 +480,36 @@ body {
 /* ── Mobile touch controls ── */
 #touch-controls {
   display: none;
-  grid-template-columns: repeat(3, 52px);
-  grid-template-rows: repeat(2, 52px);
-  gap: 5px; justify-content: center;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(2, 56px);
+  gap: 6px; justify-content: center;
 }
 @media (pointer: coarse) { #touch-controls { display: grid; } }
 .touch-btn {
-  width: 52px; height: 52px;
+  width: 56px; height: 56px;
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px; font-size: 1.3rem; color: var(--text);
+  border-radius: 12px; font-size: 1.4rem; color: var(--text);
   cursor: pointer; display: flex; align-items: center; justify-content: center;
   user-select: none; -webkit-user-select: none;
-  transition: background 0.1s;
+  transition: background 0.08s, transform 0.08s;
+  -webkit-tap-highlight-color: transparent;
 }
-.touch-btn:active      { background: var(--border); }
+.touch-btn:active      { background: rgba(0,255,136,0.15); transform: scale(0.94); border-color: var(--accent); }
 .touch-btn.center-top  { grid-column: 2; grid-row: 1; }
 .touch-btn.center-left { grid-column: 1; grid-row: 2; }
 .touch-btn.center-mid  { grid-column: 2; grid-row: 2; }
 .touch-btn.center-right{ grid-column: 3; grid-row: 2; }
 
+/* ── Responsive canvas scaling ── */
+@media (max-width: 500px) {
+  #game-canvas {
+    width: 92vw !important;
+    height: 92vw !important;
+  }
+  #hud { width: 92vw; }
+}
+
 </style>
-  <!-- SEO -->
-  <meta name="description" content="無料スネークゲーム。3モード・スキン・コンボ・世界ランキング搭載。" />
-  <meta property="og:title" content="🐍 SNAKE GAME" />
-  <meta property="og:description" content="無料スネークゲーム — クラシック・ノーウォール・タイムアタック" />
-  <meta name="theme-color" content="#00ff88" />
-  <!--
-    ▼▼▼ Google AdSense — ここを自分のコードに置き換えてください ▼▼▼
-    AdSense審査通過後、下の2行のコメントを外してpublisher IDを入れてください。
-  -->
-  <!--
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX"
-     crossorigin="anonymous"></script>
-  -->
 </head>
 <body>
   <div id="app">
@@ -542,13 +561,17 @@ body {
 
       <div id="ach-badges" class="ach-badges"></div>
 
-      <div class="controls-hint">
+      <div class="controls-hint desktop-only">
         <div class="hint-item"><span class="key">↑↓←→</span> 移動</div>
         <div class="hint-item"><span class="key">WASD</span> 移動</div>
         <div class="hint-item"><span class="key">Space</span> 一時停止</div>
+        <div class="hint-item"><span class="key">R</span> 再スタート</div>
       </div>
-      <button id="world-ranking-btn" class="btn btn-secondary btn-sm">🌍 世界ランキング</button>
-      <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
+
+      <div class="start-actions">
+        <button id="world-ranking-btn" class="btn btn-secondary btn-sm">🌍 世界ランキング</button>
+        <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
+      </div>
     </div>
 
     <!-- Game Screen -->
@@ -572,15 +595,18 @@ body {
         <canvas id="game-canvas"></canvas>
         <div id="pause-overlay" class="hidden">
           <div class="pause-text">⏸ PAUSED</div>
-          <p>Spaceキーで再開</p>
-          <button id="quit-btn" class="btn btn-secondary btn-sm">メニューへ戻る</button>
+          <p class="desktop-only">Spaceキーで再開</p>
+          <div class="pause-actions">
+            <button id="resume-btn" class="btn btn-primary btn-sm">再開</button>
+            <button id="quit-btn" class="btn btn-secondary btn-sm">メニューへ</button>
+          </div>
         </div>
       </div>
       <div id="effect-bar">
         <div id="effect-slow"   class="effect-tag hidden">❄️ スロー中</div>
         <div id="effect-shield" class="effect-tag shield-tag hidden">🛡 シールド</div>
         <div id="effect-combo"  class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
-        <div id="effect-boost" class="effect-tag boost-tag hidden">⚡ ブースト中</div>
+        <div id="effect-boost"  class="effect-tag boost-tag hidden">⚡ ブースト中</div>
       </div>
       <div id="food-legend">
         <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常</div>
@@ -636,13 +662,13 @@ body {
           <button id="retry-btn" class="btn btn-primary">もう一度</button>
           <button id="menu-btn" class="btn btn-secondary">メニューへ</button>
         </div>
-        <p class="restart-hint"><span class="key">R</span> でも再スタート</p>
+        <p class="restart-hint desktop-only"><span class="key">R</span> でも再スタート</p>
       </div>
     </div>
 
   </div>
 
-  <!-- Achievement toast container (outside #app so it's always on top) -->
+  <!-- Achievement toast container -->
   <div id="toast-container"></div>
 
   <!-- Animated background orbs -->
@@ -795,6 +821,22 @@ function bgmStep() {
 }
 function startBGM() { if(bgmRunning||muted) return; bgmRunning=true; bgmIdx=0; bgmStep(); }
 function stopBGM()  { bgmRunning=false; clearTimeout(bgmTimer); }
+
+// ── Settings persistence ───────────────────────────────────────────────────
+function loadSettings() {
+  try {
+    const s = JSON.parse(localStorage.getItem('snakeSettings') || '{}');
+    if (s.gameMode    && MODE_DESC[s.gameMode])     gameMode   = s.gameMode;
+    if (s.difficulty  && DIFFS[s.difficulty])       difficulty = s.difficulty;
+    if (s.skin        && SKINS[s.skin])             skin       = s.skin;
+    if (typeof s.muted === 'boolean')               muted      = s.muted;
+  } catch(_) {}
+}
+function saveSettings() {
+  try {
+    localStorage.setItem('snakeSettings', JSON.stringify({ gameMode, difficulty, skin, muted }));
+  } catch(_) {}
+}
 
 // ── State ──────────────────────────────────────────────────────────────────
 let gameMode='classic', difficulty='normal', skin='neon';
@@ -953,6 +995,7 @@ function renderLeaderboard(newScore) {
       <span class="lb-pts">${s.toLocaleString()}</span>
     </div>`).join('');
 }
+
 // ── World ranking ──────────────────────────────────────────────────────────
 function initWorldRanking() {
   if (!localStorage.getItem(WORLD_RANKING_KEY))
@@ -1415,12 +1458,14 @@ document.addEventListener('keydown',e=>{
 });
 
 let touchStart=null;
-canvas.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+canvas.addEventListener('touchstart',e=>{
+  touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
+},{passive:true});
 canvas.addEventListener('touchend',e=>{
   if(!touchStart) return;
   const dx=e.changedTouches[0].clientX-touchStart.x, dy=e.changedTouches[0].clientY-touchStart.y;
   touchStart=null;
-  if(Math.abs(dx)<10&&Math.abs(dy)<10) return;
+  if(Math.abs(dx)<10&&Math.abs(dy)<10){togglePause();return;}
   if(Math.abs(dx)>Math.abs(dy)){const nd=dx>0?'RIGHT':'LEFT';if(OPPOSITE[nd]!==getDirName(dir)) nextDir=DIRS[nd];}
   else{const nd=dy>0?'DOWN':'UP';if(OPPOSITE[nd]!==getDirName(dir)) nextDir=DIRS[nd];}
 },{passive:true});
@@ -1433,7 +1478,8 @@ touchControls.innerHTML=`
   <button class="touch-btn center-mid"   data-dir="DOWN">▼</button>
   <button class="touch-btn center-right" data-dir="RIGHT">▶</button>`;
 gameScreen.appendChild(touchControls);
-touchControls.addEventListener('click',e=>{
+touchControls.addEventListener('pointerdown',e=>{
+  e.preventDefault();
   const btn=e.target.closest('[data-dir]'); if(!btn) return;
   const nd=btn.dataset.dir; if(OPPOSITE[nd]!==getDirName(dir)) nextDir=DIRS[nd];
 });
@@ -1443,24 +1489,28 @@ document.querySelectorAll('.mode-btn').forEach(btn=>btn.addEventListener('click'
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active'); gameMode=btn.dataset.mode;
   document.getElementById('mode-desc').textContent=MODE_DESC[gameMode];
-  updateCurrentBest();
+  updateCurrentBest(); saveSettings();
 }));
 document.querySelectorAll('.diff-btn').forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active'); difficulty=btn.dataset.diff; updateCurrentBest();
+  btn.classList.add('active'); difficulty=btn.dataset.diff;
+  updateCurrentBest(); saveSettings();
 }));
 document.querySelectorAll('.skin-btn').forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('.skin-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active'); skin=btn.dataset.skin;
+  saveSettings();
 }));
 
 // ── Mute / menu buttons ────────────────────────────────────────────────────
 muteBtnEl.addEventListener('click',()=>{
   muted=!muted; muteBtnEl.textContent=muted?'🔇':'🔊';
   if(muted) stopBGM(); else if(gameRunning&&!paused) startBGM();
+  saveSettings();
 });
 document.getElementById('start-btn').addEventListener('click',startGame);
 document.getElementById('retry-btn').addEventListener('click',startGame);
+document.getElementById('resume-btn').addEventListener('click',togglePause);
 document.getElementById('menu-btn').addEventListener('click',()=>{
   showScreen('start'); stopLoop(); stopBGM(); gameRunning=false;
   updateCurrentBest(); updateStatsBar(); initPreview();
@@ -1529,7 +1579,24 @@ function initPreview(){
 }
 function stopPreview(){ if(pvAnim){cancelAnimationFrame(pvAnim);pvAnim=null;} }
 
+// ── Apply saved settings to UI ─────────────────────────────────────────────
+function applySettingsToUI() {
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.mode===gameMode);
+  });
+  document.querySelectorAll('.diff-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.diff===difficulty);
+  });
+  document.querySelectorAll('.skin-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.skin===skin);
+  });
+  muteBtnEl.textContent=muted?'🔇':'🔊';
+  document.getElementById('mode-desc').textContent=MODE_DESC[gameMode];
+}
+
 // ── Boot ───────────────────────────────────────────────────────────────────
+loadSettings();
+applySettingsToUI();
 initWorldRanking();
 updateCurrentBest();
 updateStatsBar();
@@ -1538,6 +1605,5 @@ showScreen('start');
 initPreview();
 
 </script>
-  <p style="position:fixed;bottom:4px;right:8px;font-size:0.6rem;opacity:0.4;"><a href="privacy.html" style="color:inherit;text-decoration:none;">プライバシーポリシー</a></p>
 </body>
 </html>

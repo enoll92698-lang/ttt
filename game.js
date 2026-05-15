@@ -132,6 +132,22 @@ function bgmStep() {
 function startBGM() { if(bgmRunning||muted) return; bgmRunning=true; bgmIdx=0; bgmStep(); }
 function stopBGM()  { bgmRunning=false; clearTimeout(bgmTimer); }
 
+// ── Settings persistence ───────────────────────────────────────────────────
+function loadSettings() {
+  try {
+    const s = JSON.parse(localStorage.getItem('snakeSettings') || '{}');
+    if (s.gameMode    && MODE_DESC[s.gameMode])     gameMode   = s.gameMode;
+    if (s.difficulty  && DIFFS[s.difficulty])       difficulty = s.difficulty;
+    if (s.skin        && SKINS[s.skin])             skin       = s.skin;
+    if (typeof s.muted === 'boolean')               muted      = s.muted;
+  } catch(_) {}
+}
+function saveSettings() {
+  try {
+    localStorage.setItem('snakeSettings', JSON.stringify({ gameMode, difficulty, skin, muted }));
+  } catch(_) {}
+}
+
 // ── State ──────────────────────────────────────────────────────────────────
 let gameMode='classic', difficulty='normal', skin='neon';
 let snake, dir, nextDir, food, score, highScore, level, foodCount;
@@ -289,6 +305,7 @@ function renderLeaderboard(newScore) {
       <span class="lb-pts">${s.toLocaleString()}</span>
     </div>`).join('');
 }
+
 // ── World ranking ──────────────────────────────────────────────────────────
 function initWorldRanking() {
   if (!localStorage.getItem(WORLD_RANKING_KEY))
@@ -751,12 +768,14 @@ document.addEventListener('keydown',e=>{
 });
 
 let touchStart=null;
-canvas.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+canvas.addEventListener('touchstart',e=>{
+  touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
+},{passive:true});
 canvas.addEventListener('touchend',e=>{
   if(!touchStart) return;
   const dx=e.changedTouches[0].clientX-touchStart.x, dy=e.changedTouches[0].clientY-touchStart.y;
   touchStart=null;
-  if(Math.abs(dx)<10&&Math.abs(dy)<10) return;
+  if(Math.abs(dx)<10&&Math.abs(dy)<10){togglePause();return;}
   if(Math.abs(dx)>Math.abs(dy)){const nd=dx>0?'RIGHT':'LEFT';if(OPPOSITE[nd]!==getDirName(dir)) nextDir=DIRS[nd];}
   else{const nd=dy>0?'DOWN':'UP';if(OPPOSITE[nd]!==getDirName(dir)) nextDir=DIRS[nd];}
 },{passive:true});
@@ -769,7 +788,8 @@ touchControls.innerHTML=`
   <button class="touch-btn center-mid"   data-dir="DOWN">▼</button>
   <button class="touch-btn center-right" data-dir="RIGHT">▶</button>`;
 gameScreen.appendChild(touchControls);
-touchControls.addEventListener('click',e=>{
+touchControls.addEventListener('pointerdown',e=>{
+  e.preventDefault();
   const btn=e.target.closest('[data-dir]'); if(!btn) return;
   const nd=btn.dataset.dir; if(OPPOSITE[nd]!==getDirName(dir)) nextDir=DIRS[nd];
 });
@@ -779,24 +799,28 @@ document.querySelectorAll('.mode-btn').forEach(btn=>btn.addEventListener('click'
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active'); gameMode=btn.dataset.mode;
   document.getElementById('mode-desc').textContent=MODE_DESC[gameMode];
-  updateCurrentBest();
+  updateCurrentBest(); saveSettings();
 }));
 document.querySelectorAll('.diff-btn').forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active'); difficulty=btn.dataset.diff; updateCurrentBest();
+  btn.classList.add('active'); difficulty=btn.dataset.diff;
+  updateCurrentBest(); saveSettings();
 }));
 document.querySelectorAll('.skin-btn').forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('.skin-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active'); skin=btn.dataset.skin;
+  saveSettings();
 }));
 
 // ── Mute / menu buttons ────────────────────────────────────────────────────
 muteBtnEl.addEventListener('click',()=>{
   muted=!muted; muteBtnEl.textContent=muted?'🔇':'🔊';
   if(muted) stopBGM(); else if(gameRunning&&!paused) startBGM();
+  saveSettings();
 });
 document.getElementById('start-btn').addEventListener('click',startGame);
 document.getElementById('retry-btn').addEventListener('click',startGame);
+document.getElementById('resume-btn').addEventListener('click',togglePause);
 document.getElementById('menu-btn').addEventListener('click',()=>{
   showScreen('start'); stopLoop(); stopBGM(); gameRunning=false;
   updateCurrentBest(); updateStatsBar(); initPreview();
@@ -865,7 +889,24 @@ function initPreview(){
 }
 function stopPreview(){ if(pvAnim){cancelAnimationFrame(pvAnim);pvAnim=null;} }
 
+// ── Apply saved settings to UI ─────────────────────────────────────────────
+function applySettingsToUI() {
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.mode===gameMode);
+  });
+  document.querySelectorAll('.diff-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.diff===difficulty);
+  });
+  document.querySelectorAll('.skin-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.skin===skin);
+  });
+  muteBtnEl.textContent=muted?'🔇':'🔊';
+  document.getElementById('mode-desc').textContent=MODE_DESC[gameMode];
+}
+
 // ── Boot ───────────────────────────────────────────────────────────────────
+loadSettings();
+applySettingsToUI();
 initWorldRanking();
 updateCurrentBest();
 updateStatsBar();
