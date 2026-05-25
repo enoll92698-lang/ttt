@@ -3,204 +3,843 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</title>
+  <title>なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開 | AI時短ラボ</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-      background: #f5f5f0;
-      color: #333;
-      line-height: 1.9;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0;
+      --white: #fff;
+      --ink: #222;
+      --ink2: #444;
+      --ink3: #888;
+      --border: #e0e0da;
+      --accent: #1a1a1a;
+      --tag-bg: #f0f0e8;
+      --ad-bg: #f9f9f4;
+      --note-bg: #fff8e1;
+      --note-border: #f5a623;
+      --serif: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+      --sans: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
     }
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 48px 40px 80px;
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.9; font-size: 15px; }
+
+    /* ── Top ad bar ── */
+    .ad-top-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      padding: 8px 16px; gap: 8px;
+      font-size: 0.7rem; color: var(--ink3);
     }
-    h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      line-height: 1.5;
-      margin-bottom: 32px;
-      color: #111;
+    .ad-slot {
+      background: var(--ad-bg);
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      color: #bbb; font-size: 0.68rem; letter-spacing: 0.06em;
     }
-    h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
+    .ad-slot-leaderboard { width: 728px; height: 90px; max-width: 100%; }
+    .ad-slot-rect        { width: 300px; height: 250px; }
+    .ad-slot-inline      { width: 100%; height: 90px; margin: 24px 0; }
+    .ad-slot-side        { width: 100%; height: 200px; margin-bottom: 20px; }
+
+    /* ── Header ── */
+    header {
+      background: var(--white);
+      border-bottom: 2px solid var(--ink);
+      padding: 14px 20px 12px;
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .site-logo { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.01em; text-decoration: none; color: var(--ink); }
+    .site-logo span { color: #e83; }
+    nav { display: flex; gap: 18px; font-size: 0.82rem; }
+    nav a { color: var(--ink2); text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      max-width: 1080px; margin: 0 auto; padding: 10px 20px;
+      font-size: 0.72rem; color: var(--ink3);
+      display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+    }
+    .breadcrumb a { color: var(--ink3); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: 0.5; }
+
+    /* ── Main layout ── */
+    .layout {
+      max-width: 1080px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+      padding: 0 20px 60px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { order: 2; }
+    }
+
+    /* ── Article ── */
+    article { background: var(--white); padding: 40px 40px 52px; border-radius: 2px; }
+    @media (max-width: 600px) { article { padding: 24px 18px 40px; } }
+
+    .article-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tag {
+      background: var(--tag-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 2px 9px;
+      font-size: 0.7rem; color: var(--ink3);
+      text-decoration: none;
+    }
+    .tag:hover { background: var(--border); }
+
+    .article-title {
+      font-size: 1.7rem; font-weight: 900; line-height: 1.45;
+      margin-bottom: 16px; color: var(--ink);
+    }
+    @media (max-width: 600px) { .article-title { font-size: 1.35rem; } }
+
+    .article-meta {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      font-size: 0.75rem; color: var(--ink3);
+      padding-bottom: 20px; border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    .article-meta .author { font-weight: 700; color: var(--ink2); }
+    .article-meta .date-badge {
+      background: var(--tag-bg); padding: 2px 8px; border-radius: 3px;
+    }
+    .article-share {
+      display: flex; gap: 8px; margin-left: auto;
+    }
+    .share-btn {
+      padding: 4px 12px; border-radius: 4px;
+      font-size: 0.7rem; font-weight: 700;
+      cursor: pointer; border: none; color: #fff;
+      text-decoration: none;
+    }
+    .share-x   { background: #000; }
+    .share-line { background: #06c755; }
+    .share-copy { background: var(--ink3); }
+
+    /* article body */
+    .article-body h2 {
+      font-size: 1.2rem; font-weight: 900;
       margin: 48px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #111;
-      color: #111;
+      padding: 10px 16px;
+      background: var(--ink); color: #fff;
+      border-radius: 4px;
     }
-    h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 32px 0 12px;
-      color: #333;
+    .article-body h3 {
+      font-size: 1.05rem; font-weight: 700;
+      margin: 36px 0 12px;
+      padding-left: 10px;
+      border-left: 3px solid var(--ink);
+      color: var(--ink);
     }
-    p {
-      margin-bottom: 16px;
-      font-size: 0.97rem;
+    .article-body p { margin-bottom: 16px; font-size: 0.96rem; color: var(--ink2); }
+    .article-body p.lead { font-size: 1.08rem; color: var(--ink); font-weight: 500; margin-bottom: 20px; }
+    .article-body blockquote {
+      border-left: 3px solid #ccc;
+      padding: 12px 18px;
+      font-style: italic; color: #666;
+      background: #fafafa;
+      margin: 16px 0 24px;
+      font-size: 0.95rem;
     }
-    pre {
+    .article-body pre {
       background: #f0f0eb;
       border-left: 3px solid #888;
       padding: 16px 20px;
-      font-size: 0.88rem;
-      line-height: 1.7;
+      font-size: 0.85rem; line-height: 1.7;
       margin: 16px 0 24px;
-      white-space: pre-wrap;
-      word-break: break-all;
+      white-space: pre-wrap; word-break: break-all;
       font-family: "Courier New", monospace;
       border-radius: 4px;
     }
-    .lead {
-      font-size: 1.05rem;
-      color: #444;
-      margin-bottom: 24px;
+    .article-body .note {
+      background: var(--note-bg);
+      border-left: 4px solid var(--note-border);
+      padding: 16px 20px; margin: 24px 0;
+      font-size: 0.91rem; border-radius: 0 4px 4px 0;
+      color: var(--ink2);
     }
-    .italic-quote {
-      font-style: italic;
-      color: #555;
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-    }
-    .note {
-      background: #fff8e1;
-      border-left: 4px solid #f5a623;
-      padding: 16px 20px;
-      margin: 24px 0;
-      font-size: 0.93rem;
-      border-radius: 0 4px 4px 0;
-    }
-    .cta {
-      background: #f5f5f0;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 28px 28px;
-      margin-top: 48px;
-      font-size: 0.93rem;
-    }
-    .cta a {
-      color: #1a1a1a;
-      font-weight: 700;
-      text-decoration: underline;
-    }
-    hr {
-      border: none;
-      border-top: 1px solid #e0e0e0;
-      margin: 40px 0;
+    .article-body .note strong { color: #c06000; }
+    .article-body .success-box {
+      background: #f0fff4;
+      border-left: 4px solid #22c55e;
+      padding: 16px 20px; margin: 24px 0;
+      font-size: 0.91rem; border-radius: 0 4px 4px 0;
+      color: var(--ink2);
     }
     .label {
       display: inline-block;
-      background: #333;
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 3px;
-      margin-bottom: 8px;
+      background: var(--ink); color: #fff;
+      font-size: 0.68rem; padding: 2px 9px;
+      border-radius: 3px; margin-bottom: 6px;
+      letter-spacing: 0.05em;
     }
     .before-after {
-      background: #fafafa;
-      border: 1px solid #e5e5e5;
-      border-radius: 6px;
-      padding: 14px 18px;
-      font-size: 0.88rem;
-      margin: 8px 0 20px;
-      color: #555;
+      background: #fafafa; border: 1px solid #e5e5e5;
+      border-radius: 6px; padding: 14px 18px;
+      font-size: 0.86rem; margin: 8px 0 20px; color: #555;
+      line-height: 1.7;
     }
+    .before-after .before { color: #c0392b; }
+    .before-after .after  { color: #27ae60; }
+
+    /* comparison table */
+    .compare-table {
+      width: 100%; border-collapse: collapse;
+      margin: 20px 0 28px; font-size: 0.88rem;
+    }
+    .compare-table th {
+      background: var(--ink); color: #fff;
+      padding: 10px 14px; text-align: left; font-size: 0.82rem;
+    }
+    .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .compare-table tr:nth-child(even) td { background: var(--tag-bg); }
+    .compare-table .good { color: #27ae60; font-weight: 700; }
+    .compare-table .bad  { color: #c0392b; }
+
+    /* step list */
+    .step-list { list-style: none; margin: 16px 0 24px; }
+    .step-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 14px; font-size: 0.93rem; color: var(--ink2);
+    }
+    .step-num {
+      flex-shrink: 0; width: 28px; height: 28px;
+      background: var(--ink); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 900; margin-top: 1px;
+    }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+    /* related articles inside article */
+    .related-inline {
+      background: var(--tag-bg); border-radius: 6px;
+      padding: 18px 20px; margin: 32px 0;
+    }
+    .related-inline .ri-title { font-size: 0.72rem; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .related-inline a {
+      display: flex; align-items: flex-start; gap: 10px;
+      text-decoration: none; padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink);
+    }
+    .related-inline a:last-child { border-bottom: none; }
+    .related-inline a:hover .ri-title-text { text-decoration: underline; }
+    .ri-thumb { width: 60px; height: 44px; background: #ddd; border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .ri-info { flex: 1; }
+    .ri-title-text { font-size: 0.86rem; font-weight: 700; line-height: 1.4; }
+    .ri-meta { font-size: 0.68rem; color: var(--ink3); margin-top: 3px; }
+
+    /* CTA */
+    .cta {
+      background: var(--tag-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 28px; margin-top: 48px; font-size: 0.91rem;
+    }
+    .cta a { color: var(--ink); font-weight: 700; }
+    .cta-headline { font-size: 1rem; font-weight: 900; margin-bottom: 10px; color: var(--ink); }
+
+    /* author box */
+    .author-box {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px; margin-top: 40px;
+    }
+    .author-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .author-name { font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+    .author-bio { font-size: 0.82rem; color: var(--ink3); line-height: 1.6; }
+
+    /* post nav */
+    .post-nav {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px;
+    }
+    .post-nav a {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 6px; padding: 14px 16px;
+      text-decoration: none; color: var(--ink);
+      font-size: 0.82rem; line-height: 1.5;
+    }
+    .post-nav a:hover { background: var(--tag-bg); }
+    .post-nav .nav-dir { font-size: 0.68rem; color: var(--ink3); margin-bottom: 4px; }
+    .post-nav .nav-prev { text-align: left; }
+    .post-nav .nav-next { text-align: right; }
+    .post-nav .nav-title { font-weight: 700; }
+
+    /* ── Sidebar ── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .sidebar-section {
+      background: var(--white); border-radius: 2px; overflow: hidden;
+    }
+    .sidebar-heading {
+      background: var(--ink); color: #fff;
+      padding: 9px 14px; font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.08em;
+    }
+    .sidebar-body { padding: 14px; }
+
+    /* popular articles */
+    .pop-list { list-style: none; }
+    .pop-list li {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+    }
+    .pop-list li:last-child { border-bottom: none; }
+    .pop-rank {
+      flex-shrink: 0; width: 22px; height: 22px;
+      background: var(--ink); color: #fff;
+      border-radius: 3px; font-size: 0.68rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .pop-rank.gold   { background: #c9a227; }
+    .pop-rank.silver { background: #888; }
+    .pop-rank.bronze { background: #a0522d; }
+    .pop-info a { font-size: 0.82rem; font-weight: 700; color: var(--ink); text-decoration: none; line-height: 1.4; display: block; }
+    .pop-info a:hover { text-decoration: underline; }
+    .pop-meta { font-size: 0.66rem; color: var(--ink3); margin-top: 3px; }
+
+    /* category */
+    .cat-list { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; }
+    .cat-link {
+      background: var(--tag-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 4px 11px;
+      font-size: 0.75rem; color: var(--ink2);
+      text-decoration: none;
+    }
+    .cat-link:hover { background: var(--border); }
+
+    /* recent articles */
+    .recent-list { list-style: none; }
+    .recent-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 10px 14px; border-bottom: 1px solid var(--border);
+    }
+    .recent-item:last-child { border-bottom: none; }
+    .recent-thumb {
+      width: 50px; height: 38px; border-radius: 3px;
+      background: #e8e8e0; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .recent-info a { font-size: 0.8rem; font-weight: 700; color: var(--ink); text-decoration: none; line-height: 1.4; display: block; }
+    .recent-info a:hover { text-decoration: underline; }
+    .recent-date { font-size: 0.65rem; color: var(--ink3); margin-top: 2px; }
+
+    /* newsletter */
+    .nl-box { padding: 14px; }
+    .nl-box p { font-size: 0.82rem; color: var(--ink2); margin-bottom: 10px; }
+    .nl-form { display: flex; flex-direction: column; gap: 8px; }
+    .nl-form input {
+      width: 100%; padding: 8px 10px;
+      border: 1px solid var(--border); border-radius: 4px;
+      font-size: 0.82rem; font-family: var(--sans);
+    }
+    .nl-form button {
+      padding: 8px; background: var(--ink); color: #fff;
+      border: none; border-radius: 4px;
+      font-size: 0.82rem; font-weight: 700; cursor: pointer;
+    }
+    .nl-form button:hover { opacity: 0.85; }
+
+    /* ── Bottom related articles grid ── */
+    .bottom-related {
+      max-width: 1080px; margin: 0 auto 48px;
+      padding: 0 20px;
+    }
+    .bottom-related h2 {
+      font-size: 0.82rem; font-weight: 900; color: var(--ink3);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      border-bottom: 2px solid var(--ink); padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .related-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .related-card {
+      background: var(--white); border-radius: 4px; overflow: hidden;
+      text-decoration: none; color: var(--ink);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.15s;
+    }
+    .related-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    .card-thumb {
+      width: 100%; height: 120px;
+      background: linear-gradient(135deg, #e8e8e0, #d0d0c8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem;
+    }
+    .card-body { padding: 12px 14px 16px; }
+    .card-tags { display: flex; gap: 5px; margin-bottom: 6px; flex-wrap: wrap; }
+    .card-tag { font-size: 0.64rem; color: var(--ink3); }
+    .card-title { font-size: 0.86rem; font-weight: 700; line-height: 1.5; margin-bottom: 6px; }
+    .card-meta { font-size: 0.66rem; color: var(--ink3); display: flex; gap: 10px; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.6);
+      font-size: 0.75rem; text-align: center;
+      padding: 28px 20px;
+    }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 8px; }
+    footer a:hover { color: #fff; }
+    .footer-logo { font-size: 1rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
+    .footer-logo span { color: #e83; }
   </style>
 </head>
 <body>
-  <div class="container">
 
-    <h1>なぜこのメール1本に30分かかる？<br>ChatGPTで3分に変えた手順をそのまま公開</h1>
+  <!-- Top leaderboard ad -->
+  <div class="ad-top-bar">
+    <span>広告</span>
+    <div class="ad-slot ad-slot-leaderboard">728 × 90 — リーダーボード広告</div>
+  </div>
 
-    <p class="italic-quote">「件名を考えて、書いて、読み返して、また直して…」</p>
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a class="site-logo" href="#">AI<span>時短</span>ラボ</a>
+      <nav>
+        <a href="#">ChatGPT</a>
+        <a href="#">Gemini</a>
+        <a href="#">仕事術</a>
+        <a href="#">副業</a>
+        <a href="#">ツール比較</a>
+        <a href="#">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
 
-    <p>ビジネスメール1本に、気づけば30分使っていることがある。それが1日3本あれば、週に2〜3時間がメールだけで消える。</p>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">ホーム</a><span>›</span>
+    <a href="#">ChatGPT</a><span>›</span>
+    <span>なぜこのメール1本に30分かかる？</span>
+  </div>
 
-    <p>その時間、ChatGPTに任せると3分になる。</p>
+  <!-- Layout -->
+  <div class="layout">
 
-    <p>「AIが書いた文章って、なんか不自然じゃない？」<br>
-    そう思っていた自分が、使い続けて気づいたこと——コツはプロンプト（指示文）の書き方だけだった。</p>
+    <!-- ── Main Article ── -->
+    <main>
+      <article>
 
-    <p>この記事では、そのまま使えるプロンプトを3パターン公開します。ChatGPTの使い方がわからない方でも、コピペするだけでOKです。</p>
+        <div class="article-tags">
+          <a class="tag" href="#">ChatGPT</a>
+          <a class="tag" href="#">ビジネスメール</a>
+          <a class="tag" href="#">プロンプト</a>
+          <a class="tag" href="#">時短術</a>
+        </div>
 
-    <hr>
+        <h1 class="article-title">なぜこのメール1本に30分かかる？<br>ChatGPTで3分に変えた手順をそのまま公開</h1>
 
-    <h2>プロンプトの書き方：たった4項目を入れるだけ</h2>
+        <div class="article-meta">
+          <span class="author">中村 リョウ</span>
+          <span class="date-badge">2026年5月17日（8日前）</span>
+          <span>更新：2026年5月20日</span>
+          <span>読了：約5分</span>
+          <div class="article-share">
+            <a class="share-btn share-x" href="#">X</a>
+            <a class="share-btn share-line" href="#">LINE</a>
+            <a class="share-btn share-copy" href="#">コピー</a>
+          </div>
+        </div>
 
-    <p>ChatGPTへの指示は、この4つを入れるだけで質が上がります。</p>
+        <div class="article-body">
 
-    <pre>①目的（何のためのメールか）
-②相手との関係・トーン
-③盛り込みたい内容
-④文字数の目安</pre>
+          <p class="lead">ビジネスメール1本に、気づけば30分以上かけていた。件名・書き出し・本文・締めと、細かい敬語の確認まで含めると、週に3〜4時間がメールに消えていた。</p>
 
-    <p>「丁寧に書いて」だけでは曖昧すぎる。条件を渡すと、修正がほぼ不要なレベルで返ってきます。</p>
+          <blockquote>「AIが書いた文章って、なんか不自然じゃない？」</blockquote>
 
-    <hr>
+          <p>そう思って使い始めるのが遅れた。でも試してみると、<strong>「コツはプロンプトの書き方だけ」</strong>だと分かった。この記事では、実際に使えるプロンプトと"なぜそう書くか"の理屈を一緒に公開します。</p>
 
-    <h2>3パターン実例</h2>
+          <hr>
 
-    <h3>パターン①：依頼メール</h3>
-    <span class="label">プロンプト</span>
-    <pre>以下の条件でビジネスメールを書いてください。
+          <h2>そもそも「メール時間30分」の構造を分解する</h2>
+
+          <p>30分の内訳を分解すると、実はほとんどが「考える」時間ではなく<strong>「言葉を選び直す」無駄ループ</strong>だと分かった。</p>
+
+          <table class="compare-table">
+            <thead>
+              <tr><th>作業</th><th>自分で書く場合</th><th>AI活用後</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>件名を考える</td><td class="bad">5〜8分</td><td class="good">0分（Aiが生成）</td></tr>
+              <tr><td>書き出しの敬語</td><td class="bad">4〜6分</td><td class="good">0分</td></tr>
+              <tr><td>本文を書く</td><td class="bad">10〜14分</td><td class="good">40秒</td></tr>
+              <tr><td>読み直し・修正</td><td class="bad">5〜7分</td><td class="good">1〜2分（固有名詞確認のみ）</td></tr>
+              <tr><td><strong>合計</strong></td><td class="bad"><strong>約28分</strong></td><td class="good"><strong>約3分</strong></td></tr>
+            </tbody>
+          </table>
+
+          <p>注目してほしいのは「修正時間」。AIの出力をゼロから書き直すのではなく、<em>固有名詞・日付・金額を確認して上書きするだけ</em>なので、修正自体が短い。</p>
+
+          <hr>
+
+          <h2>プロンプトの書き方：4項目テンプレート</h2>
+
+          <p>ChatGPTへの指示（プロンプト）に次の4項目を入れると、出力の質が大きく変わる。</p>
+
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div><strong>目的</strong>——何のためのメールか（依頼・お礼・謝罪・断り など）</div></li>
+            <li><div class="step-num">2</div><div><strong>相手との関係・トーン</strong>——初対面か継続取引か、堅さのレベル</div></li>
+            <li><div class="step-num">3</div><div><strong>盛り込みたい内容</strong>——箇条書きでOK、3点以内に絞る</div></li>
+            <li><div class="step-num">4</div><div><strong>文字数の目安</strong>——「300字以内」と明示するだけで過不足が消える</div></li>
+          </ul>
+
+          <div class="note">
+            <strong>「丁寧に書いて」だけでは曖昧すぎる。</strong><br>
+            「取引先 × 初回打ち合わせ後のお礼 × 200字 × 次回日程の一言あり」のように条件を渡すと、ほぼ修正不要なレベルで返ってくる。
+          </div>
+
+          <hr>
+
+          <h2>3パターン実例とBefore/After</h2>
+
+          <h3>パターン①：依頼メール</h3>
+          <span class="label">プロンプト</span>
+          <pre>以下の条件でビジネスメールを書いてください。
 ・目的：〇〇株式会社の山田様に、資料送付をお願いする
 ・トーン：丁寧・簡潔
 ・文字数：300字以内
-・締め：「ご多忙のところ恐れ入りますが」で結ぶ</pre>
+・締め：「ご多忙のところ恐れ入りますが」で結ぶ
+・件名も一緒に出力すること</pre>
 
-    <div class="before-after">
-      <strong>Before（自分で書いた）：</strong> 約300字、12分<br>
-      <strong>After（AI出力）：</strong> 約280字、40秒 → 固有名詞を1か所直して送信
-    </div>
+          <div class="before-after">
+            <div class="before">❌ Before（自分で書いた）：約300字、所要12分、途中で件名を3回書き直し</div>
+            <br>
+            <div class="after">✅ After（AI出力）：約280字、所要40秒 → 固有名詞「山田様」を確認して送信</div>
+          </div>
 
-    <h3>パターン②：お礼メール</h3>
-    <span class="label">プロンプト</span>
-    <pre>打ち合わせ後のお礼メールを書いてください。
+          <h3>パターン②：お礼メール</h3>
+          <span class="label">プロンプト</span>
+          <pre>打ち合わせ後のお礼メールを書いてください。
 ・相手：初回打ち合わせをした取引先（面識は浅い）
 ・内容：お礼＋次回日程の確認を一言添える
-・文字数：200字程度、くどくなりすぎないよう</pre>
+・文字数：200字程度、くどくならないよう
+・トーン：丁寧だが硬すぎない</pre>
 
-    <p>初対面の相手へのお礼は言葉選びに迷いやすい。「面識は浅い」と一言入れるだけで、距離感のあった文章が返ってきます。</p>
+          <p>「面識は浅い」と一言入れるだけで、距離感が絶妙な文章が返ってくる。「初めてお会いした」と書くより精度が上がる。</p>
 
-    <h3>パターン③：お断りメール</h3>
-    <span class="label">プロンプト</span>
-    <pre>丁重にお断りするメールを書いてください。
+          <h3>パターン③：お断りメール</h3>
+          <span class="label">プロンプト</span>
+          <pre>丁重にお断りするメールを書いてください。
 ・状況：営業メールへの断り返信
 ・条件：今後の関係を壊さない言い方・理由は詳しく書かない
-・文字数：150字以内</pre>
+・文字数：150字以内
+・結語は「今後ともよろしくお願いいたします」で締める</pre>
 
-    <p>断りメールは書くのが一番しんどい。「理由は詳しく書かない」と明示すると、言い訳がましくならない自然な文章が出てきます。</p>
+          <p>断りメールは書くのが一番しんどい。「理由は詳しく書かない」と明示すると、言い訳がましくならない自然な文章が出てくる。</p>
 
-    <hr>
+          <hr>
 
-    <h2>一つだけ注意すること</h2>
+          <!-- インライン広告 -->
+          <div class="ad-slot ad-slot-inline">記事中広告スロット（300×90 / レスポンシブ対応）</div>
 
-    <div class="note">
-      <strong>個人名・社名・金額など、社外秘になりうる情報はプロンプトに入れないこと。</strong><br><br>
-      「〇〇株式会社の田中様」ではなく「取引先の担当者様」と書けば十分です。AIは文脈を補ってくれます。これだけ守れば、業務で使っても問題ありません。
+          <h2>一つだけ守るべきセキュリティルール</h2>
+
+          <div class="note">
+            <strong>個人名・社名・金額など、社外秘になりうる情報はプロンプトに入れないこと。</strong><br><br>
+            「〇〇株式会社の田中様」ではなく「取引先の担当者様」と書けば十分です。AIは文脈を補ってくれます。これだけ守れば、業務利用しても情報漏洩リスクをほぼゼロにできます。
+          </div>
+
+          <p>念のため補足すると、2024年以降のChatGPT（有料プラン）はデフォルトで学習データへの組み込みがオフになっている。ただし社内規定でAI使用が制限されている場合は、そちらに従うこと。</p>
+
+          <hr>
+
+          <!-- 関連記事（インライン） -->
+          <div class="related-inline">
+            <div class="ri-title">この記事を読んだ人はこちらも読んでいます</div>
+            <a href="#">
+              <div class="ri-thumb">📋</div>
+              <div class="ri-info">
+                <div class="ri-title-text">ChatGPTで議事録を5分で完成させる方法【テンプレ付き】</div>
+                <div class="ri-meta">14日前 ・ ChatGPT ・ 4分</div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="ri-thumb">🔤</div>
+              <div class="ri-info">
+                <div class="ri-title-text">プロンプトの書き方完全ガイド——初心者が最初に覚える10パターン</div>
+                <div class="ri-meta">21日前 ・ プロンプト ・ 7分</div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="ri-thumb">💼</div>
+              <div class="ri-info">
+                <div class="ri-title-text">週20時間の業務を「AI＋テンプレ」で週3時間に圧縮した話</div>
+                <div class="ri-meta">28日前 ・ 仕事術 ・ 6分</div>
+              </div>
+            </a>
+          </div>
+
+          <h2>応用：メール以外の業務にも使える</h2>
+
+          <p>慣れると「メールを考える」作業がほぼなくなる。次のステップとして、同じ4項目フォーマットをそのまま他の業務に転用できる。</p>
+
+          <ul class="step-list">
+            <li><div class="step-num">①</div><div><strong>議事録の要約</strong>——録音テキスト貼り付け＋「論点・決定事項・次のアクションを箇条書きで」</div></li>
+            <li><div class="step-num">②</div><div><strong>企画書のアウトライン</strong>——背景・目的・施策・KPIを4行で渡すとA4一枚の骨格が返ってくる</div></li>
+            <li><div class="step-num">③</div><div><strong>報告書の「まとめ」欄</strong>——詳細テキストを貼り付けて「3行以内で要約」するだけ</div></li>
+          </ul>
+
+          <div class="success-box">
+            <strong>✅ 実感できた効果</strong><br>
+            メール・議事録・週報の3つだけで、週あたり約6〜7時間が浮いた。その時間を企画や商談準備に使えるようになった。
+          </div>
+
+          <hr>
+
+          <h2>まとめ</h2>
+
+          <p>ポイントは3つだけ。</p>
+
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>目的・相手・内容・文字数の<strong>4項目を必ず入れる</strong></div></li>
+            <li><div class="step-num">2</div><div>社外秘情報は入れず、<strong>固有名詞は後から手修正</strong></div></li>
+            <li><div class="step-num">3</div><div>最初はコピペでいい。<strong>2〜3回で自分流にアレンジできる</strong>ようになる</div></li>
+          </ul>
+
+          <p>難しいことは何もない。今日のメール1本から試してほしい。</p>
+
+          <!-- CTA -->
+          <div class="cta">
+            <div class="cta-headline">次に読むべき記事はこちら 👇</div>
+            <p>▶ <a href="#">ChatGPTで議事録を5分で完成させる方法【無料テンプレ配布】</a></p>
+            <p style="margin-top:8px;">▶ <a href="#">【有料】プロンプト完全マニュアル——業務別50パターン収録</a></p>
+            <p style="margin-top:14px; font-size:0.82rem; color:#888;">この記事が役に立ったら「シェア」してもらえると励みになります。</p>
+          </div>
+
+        </div><!-- /article-body -->
+
+        <!-- Author -->
+        <div class="author-box">
+          <div class="author-avatar">🤖</div>
+          <div>
+            <div class="author-name">中村 リョウ（AI時短ラボ 編集長）</div>
+            <div class="author-bio">元IT系会社員。2022年からAIツールを使った業務効率化を研究・発信。ChatGPT、Gemini、Claude の実務活用歴3年。X（@nkmr_ryo）でも毎日プロンプトを公開中。</div>
+          </div>
+        </div>
+
+        <!-- Post nav -->
+        <nav class="post-nav">
+          <a class="nav-prev" href="#">
+            <div class="nav-dir">← 前の記事</div>
+            <div class="nav-title">ChatGPTの「カスタム指示」とは？設定しておくべき3パターン</div>
+          </a>
+          <a class="nav-next" href="#">
+            <div class="nav-dir">次の記事 →</div>
+            <div class="nav-title">GPT-4oで画像を読み込んで資料を自動解説させる方法</div>
+          </a>
+        </nav>
+
+      </article>
+    </main>
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+
+      <!-- サイドバー広告 -->
+      <div class="ad-slot ad-slot-rect" style="width:100%; height:200px; display:flex; align-items:center; justify-content:center; background:#f9f9f4; border:1px dashed #ccc; border-radius:4px; color:#bbb; font-size:0.68rem;">300 × 250 サイドバー広告</div>
+
+      <!-- 人気記事 -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">🔥 人気記事ランキング</div>
+        <ul class="pop-list">
+          <li>
+            <span class="pop-rank gold">1</span>
+            <div class="pop-info">
+              <a href="#">ChatGPT無料版でも使える！最強プロンプト10選</a>
+              <div class="pop-meta">2026/5/10 ・ 閲覧 12,400</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank silver">2</span>
+            <div class="pop-info">
+              <a href="#">Geminiが無料でここまでできる——ChatGPTとの違いを比較</a>
+              <div class="pop-meta">2026/5/14 ・ 閲覧 8,920</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank bronze">3</span>
+            <div class="pop-info">
+              <a href="#">Claudeが得意なこと・苦手なこと【2026年版】</a>
+              <div class="pop-meta">2026/4/28 ・ 閲覧 7,310</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">4</span>
+            <div class="pop-info">
+              <a href="#">AI議事録ツール3選を徹底比較——Notta・Otter・Fireflies</a>
+              <div class="pop-meta">2026/4/20 ・ 閲覧 6,050</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">5</span>
+            <div class="pop-info">
+              <a href="#">副業ライターがChatGPTを使って月15本書く方法</a>
+              <div class="pop-meta">2026/4/12 ・ 閲覧 5,780</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- カテゴリ -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📂 カテゴリ</div>
+        <div class="cat-list">
+          <a class="cat-link" href="#">ChatGPT</a>
+          <a class="cat-link" href="#">Gemini</a>
+          <a class="cat-link" href="#">Claude</a>
+          <a class="cat-link" href="#">プロンプト</a>
+          <a class="cat-link" href="#">仕事術</a>
+          <a class="cat-link" href="#">議事録</a>
+          <a class="cat-link" href="#">副業</a>
+          <a class="cat-link" href="#">ツール比較</a>
+          <a class="cat-link" href="#">セキュリティ</a>
+        </div>
+      </div>
+
+      <!-- 新着記事（8日以前の記事一覧） -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📅 最近の記事</div>
+        <ul class="recent-list">
+          <li class="recent-item">
+            <div class="recent-thumb">📧</div>
+            <div class="recent-info">
+              <a href="#">ChatGPTでメールを3分に短縮する方法</a>
+              <div class="recent-date">8日前（2026/5/17）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📋</div>
+            <div class="recent-info">
+              <a href="#">議事録を5分で完成させるプロンプト</a>
+              <div class="recent-date">14日前（2026/5/11）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">🔤</div>
+            <div class="recent-info">
+              <a href="#">プロンプト完全ガイド——初心者向け10パターン</a>
+              <div class="recent-date">21日前（2026/5/4）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📊</div>
+            <div class="recent-info">
+              <a href="#">Gemini vs ChatGPT——ビジネス用途で選ぶなら</a>
+              <div class="recent-date">28日前（2026/4/27）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">💼</div>
+            <div class="recent-info">
+              <a href="#">週20時間を3時間に圧縮した自動化フロー</a>
+              <div class="recent-date">35日前（2026/4/20）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">🤖</div>
+            <div class="recent-info">
+              <a href="#">Claude 4の使い方——Sonnetで何ができるか</a>
+              <div class="recent-date">42日前（2026/4/13）</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- メルマガ登録 -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📩 週刊ニュースレター</div>
+        <div class="nl-box">
+          <p>最新プロンプトや時短ネタを週1でお届け。無料。</p>
+          <form class="nl-form" onsubmit="return false;">
+            <input type="email" placeholder="メールアドレス">
+            <button type="submit">無料で登録する</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- サイドバー下部広告 -->
+      <div class="ad-slot ad-slot-side" style="display:flex; align-items:center; justify-content:center; background:#f9f9f4; border:1px dashed #ccc; border-radius:4px; color:#bbb; font-size:0.68rem;">160 × 200 サイドバー広告</div>
+
+    </aside>
+
+  </div><!-- /layout -->
+
+  <!-- Bottom related articles -->
+  <div class="bottom-related">
+    <h2>関連記事</h2>
+    <div class="related-grid">
+      <a class="related-card" href="#">
+        <div class="card-thumb">📋</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="card-tag">ChatGPT</span><span class="card-tag">・</span><span class="card-tag">議事録</span></div>
+          <div class="card-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ】</div>
+          <div class="card-meta"><span>14日前</span><span>4分で読める</span></div>
+        </div>
+      </a>
+      <a class="related-card" href="#">
+        <div class="card-thumb">🔤</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="card-tag">プロンプト</span></div>
+          <div class="card-title">初心者が最初に覚えるプロンプト10パターン完全ガイド</div>
+          <div class="card-meta"><span>21日前</span><span>7分で読める</span></div>
+        </div>
+      </a>
+      <a class="related-card" href="#">
+        <div class="card-thumb">📊</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="card-tag">ツール比較</span></div>
+          <div class="card-title">Gemini vs ChatGPT——ビジネス用途で選ぶならどっちか</div>
+          <div class="card-meta"><span>28日前</span><span>5分で読める</span></div>
+        </div>
+      </a>
+      <a class="related-card" href="#">
+        <div class="card-thumb">💼</div>
+        <div class="card-body">
+          <div class="card-tags"><span class="card-tag">仕事術</span><span class="card-tag">・</span><span class="card-tag">副業</span></div>
+          <div class="card-title">週20時間の業務をAIで週3時間に圧縮した全フロー公開</div>
+          <div class="card-meta"><span>35日前</span><span>6分で読める</span></div>
+        </div>
+      </a>
     </div>
-
-    <hr>
-
-    <h2>まとめ</h2>
-
-    <p>慣れると「メールを考える」作業がほぼなくなります。</p>
-
-    <p>最初はプロンプトをコピペするだけでいい。2〜3回使えば、自分用にアレンジできるようになる。そうなると、議事録も企画書も同じ要領で時短できます。</p>
-
-    <div class="cta">
-      <p>この記事が役に立ったら「スキ」をもらえると励みになります。</p>
-      <br>
-      <p><strong>【次の記事】</strong><br>
-      ▶ <a href="#">有料｜ChatGPTで議事録を自動化する方法（テンプレート付き）</a><br>
-      <small>※ メール以外の業務にも応用できるプロンプト集です。</small></p>
-    </div>
-
   </div>
+
+  <!-- Footer ad bar -->
+  <div class="ad-top-bar" style="border-top:1px solid var(--border); border-bottom:none;">
+    <span>広告</span>
+    <div class="ad-slot ad-slot-leaderboard">728 × 90 — フッター広告</div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">AI<span>時短</span>ラボ</div>
+    <p>AIツールを使った業務効率化・時短術を毎週発信</p>
+    <p style="margin-top:10px;">
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">お問い合わせ</a>
+      <a href="#">運営者情報</a>
+      <a href="#">サイトマップ</a>
+    </p>
+    <p style="margin-top:12px; opacity:0.4;">© 2026 AI時短ラボ All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
