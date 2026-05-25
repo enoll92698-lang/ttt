@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      background: #f5f5f0;
+      color: #333;
+      line-height: 1.9;
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 48px 40px 80px;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 32px;
+      color: #111;
+    }
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 48px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #111;
+      color: #111;
+    }
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      color: #333;
+    }
+    p {
+      margin-bottom: 16px;
+      font-size: 0.97rem;
+    }
+    pre {
+      background: #f0f0eb;
+      border-left: 3px solid #888;
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin: 16px 0 24px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-family: "Courier New", monospace;
+      border-radius: 4px;
+    }
+    .lead {
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 24px;
+    }
+    .italic-quote {
+      font-style: italic;
+      color: #555;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .note {
+      background: #fff8e1;
+      border-left: 4px solid #f5a623;
+      padding: 16px 20px;
+      margin: 24px 0;
+      font-size: 0.93rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .cta {
+      background: #f5f5f0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 28px 28px;
+      margin-top: 48px;
+      font-size: 0.93rem;
+    }
+    .cta a {
+      color: #1a1a1a;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 40px 0;
+    }
+    .label {
+      display: inline-block;
+      background: #333;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+    .before-after {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      margin: 8px 0 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>なぜこのメール1本に30分かかる？<br>ChatGPTで3分に変えた手順をそのまま公開</h1>
+
+    <p class="italic-quote">「件名を考えて、書いて、読み返して、また直して…」</p>
+
+    <p>ビジネスメール1本に、気づけば30分使っていることがある。それが1日3本あれば、週に2〜3時間がメールだけで消える。</p>
+
+    <p>その時間、ChatGPTに任せると3分になる。</p>
+
+    <p>「AIが書いた文章って、なんか不自然じゃない？」<br>
+    そう思っていた自分が、使い続けて気づいたこと——コツはプロンプト（指示文）の書き方だけだった。</p>
+
+    <p>この記事では、そのまま使えるプロンプトを3パターン公開します。ChatGPTの使い方がわからない方でも、コピペするだけでOKです。</p>
+
+    <hr>
+
+    <h2>プロンプトの書き方：たった4項目を入れるだけ</h2>
+
+    <p>ChatGPTへの指示は、この4つを入れるだけで質が上がります。</p>
+
+    <pre>①目的（何のためのメールか）
+②相手との関係・トーン
+③盛り込みたい内容
+④文字数の目安</pre>
+
+    <p>「丁寧に書いて」だけでは曖昧すぎる。条件を渡すと、修正がほぼ不要なレベルで返ってきます。</p>
+
+    <hr>
+
+    <h2>3パターン実例</h2>
+
+    <h3>パターン①：依頼メール</h3>
+    <span class="label">プロンプト</span>
+    <pre>以下の条件でビジネスメールを書いてください。
+・目的：〇〇株式会社の山田様に、資料送付をお願いする
+・トーン：丁寧・簡潔
+・文字数：300字以内
+・締め：「ご多忙のところ恐れ入りますが」で結ぶ</pre>
+
+    <div class="before-after">
+      <strong>Before（自分で書いた）：</strong> 約300字、12分<br>
+      <strong>After（AI出力）：</strong> 約280字、40秒 → 固有名詞を1か所直して送信
+    </div>
+
+    <h3>パターン②：お礼メール</h3>
+    <span class="label">プロンプト</span>
+    <pre>打ち合わせ後のお礼メールを書いてください。
+・相手：初回打ち合わせをした取引先（面識は浅い）
+・内容：お礼＋次回日程の確認を一言添える
+・文字数：200字程度、くどくなりすぎないよう</pre>
+
+    <p>初対面の相手へのお礼は言葉選びに迷いやすい。「面識は浅い」と一言入れるだけで、距離感のあった文章が返ってきます。</p>
+
+    <h3>パターン③：お断りメール</h3>
+    <span class="label">プロンプト</span>
+    <pre>丁重にお断りするメールを書いてください。
+・状況：営業メールへの断り返信
+・条件：今後の関係を壊さない言い方・理由は詳しく書かない
+・文字数：150字以内</pre>
+
+    <p>断りメールは書くのが一番しんどい。「理由は詳しく書かない」と明示すると、言い訳がましくならない自然な文章が出てきます。</p>
+
+    <hr>
+
+    <h2>一つだけ注意すること</h2>
+
+    <div class="note">
+      <strong>個人名・社名・金額など、社外秘になりうる情報はプロンプトに入れないこと。</strong><br><br>
+      「〇〇株式会社の田中様」ではなく「取引先の担当者様」と書けば十分です。AIは文脈を補ってくれます。これだけ守れば、業務で使っても問題ありません。
+    </div>
+
+    <hr>
+
+    <h2>まとめ</h2>
+
+    <p>慣れると「メールを考える」作業がほぼなくなります。</p>
+
+    <p>最初はプロンプトをコピペするだけでいい。2〜3回使えば、自分用にアレンジできるようになる。そうなると、議事録も企画書も同じ要領で時短できます。</p>
+
+    <div class="cta">
+      <p>この記事が役に立ったら「スキ」をもらえると励みになります。</p>
+      <br>
+      <p><strong>【次の記事】</strong><br>
+      ▶ <a href="#">有料｜ChatGPTで議事録を自動化する方法（テンプレート付き）</a><br>
+      <small>※ メール以外の業務にも応用できるプロンプト集です。</small></p>
+    </div>
+
+  </div>
+</body>
+</html>
