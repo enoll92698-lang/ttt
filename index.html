@@ -1,193 +1,298 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0a0a1a" />
-  <meta name="description" content="スタイリッシュなスネークゲーム。4スキン・3モード・実績・世界ランキング搭載！" />
-  <meta property="og:title" content="🐍 SNAKE GAME" />
-  <meta property="og:description" content="スタイリッシュなスネークゲーム。4スキン・3モード・実績・世界ランキング搭載！" />
-  <meta property="og:type" content="website" />
-  <title>🐍 SNAKE GAME</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ChatGPT・Gemini・Claude などAIツールを使った業務効率化・時短術を発信するメディア。プロンプト実例・ツール比較・副業活用など毎週更新。">
+  <meta property="og:title" content="AI時短ラボ — ChatGPT・AIで仕事を速くするメディア">
+  <meta property="og:description" content="AIツールで業務を時短。プロンプト実例・ツール比較・副業活用を毎週発信。">
+  <meta property="og:type" content="website">
+  <title>AI時短ラボ — ChatGPT・AIで仕事を速くするメディア</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="blog.css">
 </head>
 <body>
-  <div id="app">
 
-    <!-- Start Screen -->
-    <div id="start-screen" class="screen">
-      <h1 class="title">🐍 SNAKE</h1>
-      <canvas id="preview-canvas" class="preview-canvas"></canvas>
-
-      <div class="selector-group">
-        <div class="selector-label">モード</div>
-        <div class="mode-selector">
-          <button class="mode-btn active" data-mode="classic">クラシック</button>
-          <button class="mode-btn" data-mode="nowalls">ノーウォール</button>
-          <button class="mode-btn" data-mode="timeattack">タイムアタック</button>
-        </div>
-      </div>
-
-      <div class="two-col-selectors">
-        <div class="selector-group">
-          <div class="selector-label">難易度</div>
-          <div class="diff-selector">
-            <button class="diff-btn" data-diff="easy">かんたん</button>
-            <button class="diff-btn active" data-diff="normal">ふつう</button>
-            <button class="diff-btn" data-diff="hard">むずかしい</button>
-          </div>
-        </div>
-        <div class="selector-group">
-          <div class="selector-label">スキン</div>
-          <div class="skin-selector">
-            <button class="skin-btn active" data-skin="neon"  title="ネオン"></button>
-            <button class="skin-btn"        data-skin="fire"  title="ファイア"></button>
-            <button class="skin-btn"        data-skin="ice"   title="アイス"></button>
-            <button class="skin-btn"        data-skin="gold"  title="ゴールド"></button>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-row">
-        <p id="mode-desc" class="mode-desc">壁に当たるとゲームオーバー</p>
-        <p id="current-best" class="current-best">ベスト: ---</p>
-      </div>
-
-      <div class="stats-bar">
-        <div class="stat-chip">🎮 <strong id="stat-games">0</strong></div>
-        <div class="stat-chip">🔥 ×<strong id="stat-combo">0</strong></div>
-        <div class="stat-chip">📏 <strong id="stat-length">0</strong></div>
-      </div>
-
-      <div id="ach-badges" class="ach-badges"></div>
-
-      <div class="controls-hint desktop-only">
-        <div class="hint-item"><span class="key">↑↓←→</span> 移動</div>
-        <div class="hint-item"><span class="key">WASD</span> 移動</div>
-        <div class="hint-item"><span class="key">Space</span> 一時停止</div>
-        <div class="hint-item"><span class="key">R</span> 再スタート</div>
-      </div>
-
-      <div class="start-actions">
-        <button id="world-ranking-btn" class="btn btn-secondary btn-sm">🌍 世界ランキング</button>
-        <button id="start-btn" class="btn btn-primary">ゲームスタート</button>
-      </div>
-    </div>
-
-    <!-- Game Screen -->
-    <div id="game-screen" class="screen hidden">
-      <div id="hud">
-        <div class="hud-item">
-          <span class="hud-label">スコア</span>
-          <span id="score" class="hud-value">0</span>
-        </div>
-        <div class="hud-item center">
-          <span id="level-badge" class="level-badge">Lv.1</span>
-          <span id="timer-badge" class="timer-badge hidden">⏱ 60</span>
-        </div>
-        <div class="hud-item right">
-          <span class="hud-label">ハイスコア</span>
-          <span id="high-score" class="hud-value">0</span>
-        </div>
-        <button id="mute-btn" class="mute-btn" title="ミュート">🔊</button>
-      </div>
-      <div id="canvas-wrapper">
-        <canvas id="game-canvas"></canvas>
-        <div id="pause-overlay" class="hidden">
-          <div class="pause-text">⏸ PAUSED</div>
-          <p class="desktop-only">Spaceキーで再開</p>
-          <div class="pause-actions">
-            <button id="resume-btn" class="btn btn-primary btn-sm">再開</button>
-            <button id="quit-btn" class="btn btn-secondary btn-sm">メニューへ</button>
-          </div>
-        </div>
-      </div>
-      <div id="effect-bar">
-        <div id="effect-slow"   class="effect-tag hidden">❄️ スロー中</div>
-        <div id="effect-shield" class="effect-tag shield-tag hidden">🛡 シールド</div>
-        <div id="effect-combo"  class="effect-tag combo-tag hidden">🔥 コンボ ×<span id="combo-count">2</span></div>
-        <div id="effect-boost"  class="effect-tag boost-tag hidden">⚡ ブースト中</div>
-      </div>
-      <div id="food-legend">
-        <div class="legend-item"><span class="legend-dot" style="background:#ff6b35"></span>通常</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>ゴールド</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#00bfff"></span>スロー</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#c084fc"></span>シュリンク</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#00ffcc"></span>シールド</div>
-        <div class="legend-item"><span class="legend-dot" style="background:#aaff00"></span>ブースト</div>
-      </div>
-    </div>
-
-    <!-- Game Over Screen -->
-    <div id="gameover-screen" class="screen hidden">
-      <div class="gameover-content">
-        <h2 class="gameover-title" id="gameover-title">GAME OVER</h2>
-        <div class="result-grid">
-          <div class="result-item">
-            <span class="result-label">スコア</span>
-            <span id="final-score" class="result-value">0</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">ハイスコア</span>
-            <span id="final-high-score" class="result-value">0</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">長さ</span>
-            <span id="final-length" class="result-value">0</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">レベル</span>
-            <span id="final-level" class="result-value">0</span>
-          </div>
-        </div>
-        <div id="new-record" class="new-record hidden">🏆 NEW RECORD!</div>
-
-        <div id="world-leaderboard" class="leaderboard">
-          <div class="lb-header">
-            <span class="lb-title">🌍 世界ランキング</span>
-            <span id="wr-your-rank" class="lb-mode-label"></span>
-          </div>
-          <div id="wr-list" class="lb-list"></div>
-        </div>
-
-        <div id="leaderboard" class="leaderboard">
-          <div class="lb-header">
-            <span class="lb-title">ローカル</span>
-            <span id="lb-mode-label" class="lb-mode-label"></span>
-          </div>
-          <div id="lb-list" class="lb-list"></div>
-        </div>
-
-        <div class="gameover-buttons">
-          <button id="retry-btn" class="btn btn-primary">もう一度</button>
-          <button id="menu-btn" class="btn btn-secondary">メニューへ</button>
-        </div>
-        <p class="restart-hint desktop-only"><span class="key">R</span> でも再スタート</p>
-      </div>
-    </div>
-
+  <!-- Top ad -->
+  <div class="ad-bar">
+    <span>広告</span>
+    <div class="ad-slot ad-lb">728 × 90 — Google AdSense リーダーボード</div>
   </div>
 
-  <!-- Achievement toast container -->
-  <div id="toast-container"></div>
-
-  <!-- Animated background orbs -->
-  <div class="bg-orb bg-orb-1"></div>
-  <div class="bg-orb bg-orb-2"></div>
-  <div class="bg-orb bg-orb-3"></div>
-
-  <!-- World Ranking Modal -->
-  <div id="wr-modal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <div class="modal-header">
-        <span class="modal-title">🌍 世界ランキング TOP20</span>
-        <button id="wr-modal-close" class="modal-close">✕</button>
-      </div>
-      <div id="wr-modal-list" class="lb-list"></div>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="index.html">AI<em>時短</em>ラボ</a>
+      <button class="nav-toggle" aria-label="メニュー" onclick="this.nextElementSibling.classList.toggle('open')">☰</button>
+      <nav class="site-nav">
+        <a href="index.html">ホーム</a>
+        <a href="index.html#chatgpt">ChatGPT</a>
+        <a href="index.html#tools">ツール比較</a>
+        <a href="index.html#jitan">仕事術</a>
+        <a href="about.html">このサイトについて</a>
+        <a href="game.html" class="nav-game">🐍 ゲーム</a>
+      </nav>
     </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-label">🔥 注目記事</span>
+        <h1 class="hero-title">週20時間の業務を<br>AIで週3時間に圧縮した<br>全フローを公開します</h1>
+        <p class="hero-excerpt">メール・議事録・週報・企画書——4つの定型業務に使えるプロンプトと自動化フローをそのまま公開。再現性100%で試せます。</p>
+        <p class="hero-meta">中村 リョウ ・ 2026年5月22日 ・ 読了8分</p>
+        <a class="hero-btn" href="ai-jitan.html">記事を読む →</a>
+      </div>
+      <div class="hero-img">⚡</div>
+    </div>
+  </section>
+
+  <!-- Main layout -->
+  <div class="layout">
+
+    <!-- Main column -->
+    <main class="index-pad">
+
+      <!-- Recent articles grid -->
+      <div class="section-heading" id="chatgpt">最新記事</div>
+      <div class="article-grid" style="margin-bottom:36px;">
+
+        <a class="article-card" href="article.html">
+          <div class="card-thumb">📧</div>
+          <div class="card-body">
+            <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">メール</span></div>
+            <div class="card-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
+            <div class="card-meta"><span>8日前</span><span>5分</span></div>
+          </div>
+        </a>
+
+        <a class="article-card" href="chatgpt-gijiroku.html">
+          <div class="card-thumb">📋</div>
+          <div class="card-body">
+            <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">議事録</span></div>
+            <div class="card-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+            <div class="card-meta"><span>14日前</span><span>6分</span></div>
+          </div>
+        </a>
+
+        <a class="article-card" href="prompt-guide.html">
+          <div class="card-thumb">🔤</div>
+          <div class="card-body">
+            <div class="card-cats"><span class="card-cat">プロンプト</span><span class="card-cat">・</span><span class="card-cat">入門</span></div>
+            <div class="card-title">初心者が最初に覚えるプロンプト10パターン——コピペで使える完全ガイド</div>
+            <div class="card-meta"><span>21日前</span><span>7分</span></div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Article list -->
+      <div class="section-heading" id="tools">すべての記事</div>
+      <ul class="article-list">
+
+        <li>
+          <a class="ali" href="ai-jitan.html">
+            <div class="ali-thumb">⚡</div>
+            <div>
+              <div class="ali-cats"><span class="ali-cat">仕事術</span><span class="ali-cat">・</span><span class="ali-cat">ChatGPT</span></div>
+              <div class="ali-title">週20時間の業務をAIで週3時間に圧縮した全フロー公開</div>
+              <div class="ali-meta">中村 リョウ ・ 2026年5月22日 ・ 読了8分</div>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a class="ali" href="gemini-vs-chatgpt.html">
+            <div class="ali-thumb">📊</div>
+            <div>
+              <div class="ali-cats"><span class="ali-cat">ツール比較</span><span class="ali-cat">・</span><span class="ali-cat">Gemini</span></div>
+              <div class="ali-title">Gemini 2.0 vs ChatGPT——ビジネス用途で選ぶならどっちか【2026年版】</div>
+              <div class="ali-meta">中村 リョウ ・ 2026年5月19日 ・ 読了6分</div>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a class="ali" href="article.html">
+            <div class="ali-thumb">📧</div>
+            <div>
+              <div class="ali-cats"><span class="ali-cat">ChatGPT</span><span class="ali-cat">・</span><span class="ali-cat">メール時短</span></div>
+              <div class="ali-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
+              <div class="ali-meta">中村 リョウ ・ 2026年5月17日 ・ 読了5分</div>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a class="ali" href="chatgpt-gijiroku.html">
+            <div class="ali-thumb">📋</div>
+            <div>
+              <div class="ali-cats"><span class="ali-cat">ChatGPT</span><span class="ali-cat">・</span><span class="ali-cat">議事録</span></div>
+              <div class="ali-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+              <div class="ali-meta">中村 リョウ ・ 2026年5月11日 ・ 読了6分</div>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a class="ali" href="prompt-guide.html">
+            <div class="ali-thumb">🔤</div>
+            <div>
+              <div class="ali-cats"><span class="ali-cat">プロンプト</span><span class="ali-cat">・</span><span class="ali-cat">入門</span></div>
+              <div class="ali-title">初心者が最初に覚えるプロンプト10パターン——コピペで使える完全ガイド</div>
+              <div class="ali-meta">中村 リョウ ・ 2026年5月4日 ・ 読了7分</div>
+            </div>
+          </a>
+        </li>
+
+      </ul>
+
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <!-- サイドバー広告 -->
+      <div class="ad-slot ad-rect">300 × 250 — サイドバー広告</div>
+
+      <!-- 人気記事 -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">🔥 人気記事ランキング</div>
+        <ul class="pop-list" style="padding:0 14px;">
+          <li>
+            <span class="pop-rank gold">1</span>
+            <div class="pop-info">
+              <a href="article.html">ChatGPTでメールを3分に——プロンプト3パターン公開</a>
+              <div class="pop-meta">2026/5/17 ・ 閲覧 12,400</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank silver">2</span>
+            <div class="pop-info">
+              <a href="gemini-vs-chatgpt.html">Gemini vs ChatGPT——ビジネスで選ぶならどっちか</a>
+              <div class="pop-meta">2026/5/19 ・ 閲覧 8,920</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank bronze">3</span>
+            <div class="pop-info">
+              <a href="chatgpt-gijiroku.html">ChatGPTで議事録を5分で完成させる方法</a>
+              <div class="pop-meta">2026/5/11 ・ 閲覧 7,310</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">4</span>
+            <div class="pop-info">
+              <a href="prompt-guide.html">初心者向けプロンプト10パターン完全ガイド</a>
+              <div class="pop-meta">2026/5/4 ・ 閲覧 6,050</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">5</span>
+            <div class="pop-info">
+              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
+              <div class="pop-meta">2026/5/22 ・ 閲覧 5,780</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- カテゴリ -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📂 カテゴリ</div>
+        <div class="cat-list">
+          <a class="cat-link" href="#">ChatGPT</a>
+          <a class="cat-link" href="#">Gemini</a>
+          <a class="cat-link" href="#">Claude</a>
+          <a class="cat-link" href="#">プロンプト</a>
+          <a class="cat-link" href="#jitan">仕事術</a>
+          <a class="cat-link" href="#">議事録</a>
+          <a class="cat-link" href="#">副業</a>
+          <a class="cat-link" href="#tools">ツール比較</a>
+        </div>
+      </div>
+
+      <!-- 最近の記事 -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📅 最近の記事</div>
+        <ul class="recent-list">
+          <li class="recent-item">
+            <div class="recent-thumb">⚡</div>
+            <div class="recent-info">
+              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
+              <div class="recent-date">3日前（2026/5/22）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📊</div>
+            <div class="recent-info">
+              <a href="gemini-vs-chatgpt.html">Gemini 2.0 vs ChatGPT【2026年版】</a>
+              <div class="recent-date">6日前（2026/5/19）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📧</div>
+            <div class="recent-info">
+              <a href="article.html">ChatGPTでメールを3分に短縮する方法</a>
+              <div class="recent-date">8日前（2026/5/17）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📋</div>
+            <div class="recent-info">
+              <a href="chatgpt-gijiroku.html">議事録を5分で完成させるプロンプト</a>
+              <div class="recent-date">14日前（2026/5/11）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">🔤</div>
+            <div class="recent-info">
+              <a href="prompt-guide.html">初心者向けプロンプト10パターン</a>
+              <div class="recent-date">21日前（2026/5/4）</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- メルマガ -->
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📩 週刊ニュースレター</div>
+        <div class="nl-box">
+          <p>最新プロンプトや時短ネタを週1回お届け。無料です。</p>
+          <form class="nl-form" onsubmit="return false;">
+            <input type="email" placeholder="メールアドレスを入力">
+            <button type="submit">無料で登録する</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- サイドバー下部広告 -->
+      <div class="ad-slot ad-side">160 × 600 — サイドバー広告</div>
+
+    </aside>
+
+  </div><!-- /layout -->
+
+  <!-- Bottom ad -->
+  <div class="ad-bar footer-ad">
+    <span>広告</span>
+    <div class="ad-slot ad-lb">728 × 90 — フッター広告</div>
   </div>
 
-  <script src="game.js"></script>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-logo">AI<em>時短</em>ラボ</div>
+    <p>ChatGPT・Gemini・Claudeを使った業務効率化・時短術を毎週発信</p>
+    <nav class="footer-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">このサイトについて</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="game.html">🐍 スネークゲーム</a>
+    </nav>
+    <p class="footer-copy">© 2026 AI時短ラボ All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
