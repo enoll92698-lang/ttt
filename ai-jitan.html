@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="週20時間かかっていた業務をAIツールで週3時間に圧縮した実例を全フロー公開。メール・議事録・週報・企画書の4業務で使ったプロンプトをそのまま掲載します。">
+  <meta property="og:title" content="週20時間の業務をAIで週3時間に圧縮した全フロー公開 | AI時短ラボ">
+  <meta property="og:type" content="article">
+  <title>週20時間の業務をAIで週3時間に圧縮した全フロー公開 | AI時短ラボ</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+  <div class="ad-bar">
+    <span>広告</span>
+    <div class="ad-slot ad-lb">728 × 90 — Google AdSense リーダーボード</div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="index.html">AI<em>時短</em>ラボ</a>
+      <button class="nav-toggle" aria-label="メニュー" onclick="this.nextElementSibling.classList.toggle('open')">☰</button>
+      <nav class="site-nav">
+        <a href="index.html">ホーム</a>
+        <a href="index.html#chatgpt">ChatGPT</a>
+        <a href="index.html#tools">ツール比較</a>
+        <a href="index.html#jitan">仕事術</a>
+        <a href="about.html">このサイトについて</a>
+        <a href="game.html" class="nav-game">🐍 ゲーム</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="index.html">ホーム</a> › <a href="index.html#jitan">仕事術</a> › 週20時間の業務をAIで週3時間に圧縮した全フロー公開
+  </div>
+
+  <div class="layout">
+    <main>
+      <article class="post">
+
+        <div class="article-tags">
+          <a class="tag" href="#">仕事術</a>
+          <a class="tag" href="#">ChatGPT</a>
+          <a class="tag" href="#">時短術</a>
+          <a class="tag" href="#">業務効率化</a>
+        </div>
+
+        <h1 class="post-title">週20時間の業務をAIで週3時間に圧縮した<br>全フロー公開</h1>
+
+        <div class="post-meta">
+          <span class="author">中村 リョウ</span>
+          <span class="date-badge">2026年5月22日（3日前）</span>
+          <span>読了：約8分</span>
+          <div class="share-row">
+            <a class="share-btn share-x" href="#">X</a>
+            <a class="share-btn share-line" href="#">LINE</a>
+            <a class="share-btn share-copy" href="#">コピー</a>
+          </div>
+        </div>
+
+        <div class="post-body">
+
+          <p class="lead">「AIを使えば時短になる」とは聞くが、具体的にどの業務をどう変えれば何時間減るのか——その全工程を公開する。筆者が実際に週20時間かかっていた繰り返し業務を、ChatGPT Plusを軸としたAIフローで週3時間まで圧縮した実例だ。再現性を最優先に、使ったプロンプトをそのまま掲載する。</p>
+
+          <hr>
+
+          <h2>時間を食っていた4種類の繰り返し業務</h2>
+
+          <p>どんな職場にも「毎週必ずある、でも頭を使うほどではない」業務が存在する。筆者の場合は次の4つがその大半を占めていた。</p>
+
+          <ul class="step-list">
+            <li>
+              <div class="step-num">1</div>
+              <div><strong>メール</strong>——返信・依頼・お断り・お礼。1本あたり15〜30分、週に10〜15本で週4〜5時間</div>
+            </li>
+            <li>
+              <div class="step-num">2</div>
+              <div><strong>議事録</strong>——会議後の整理・配信。1回あたり45分〜1時間、週2〜3回で週2〜3時間</div>
+            </li>
+            <li>
+              <div class="step-num">3</div>
+              <div><strong>週報</strong>——上司・クライアントへの進捗報告。毎週金曜に1〜2時間かけて作成</div>
+            </li>
+            <li>
+              <div class="step-num">4</div>
+              <div><strong>企画書</strong>——提案のたびにゼロからアウトライン作成。1本あたり3〜4時間×月2〜3本で週換算2〜3時間</div>
+            </li>
+          </ul>
+
+          <p>合計すると週あたり約20時間。これが「考える仕事」ではなく「書く仕事・整理する仕事」に消えていた。</p>
+
+          <hr>
+
+          <h2>業務別ワークフローと実際のプロンプト</h2>
+
+          <h3>① メール：1本30分 → 40秒</h3>
+          <p>目的・相手・内容・文字数の4点をプロンプトに渡すだけ。出力の固有名詞を確認して送信する。</p>
+          <span class="label">プロンプト（依頼メール例）</span>
+          <pre>以下の条件でビジネスメールを書いてください。
+・目的：取引先担当者に来週の打ち合わせ日程の候補を3つ提示して確認をとる
+・トーン：丁寧かつ簡潔
+・候補日：月曜14時・水曜10時・木曜15時（いずれも来週）
+・文字数：250字以内
+・件名も出力すること</pre>
+
+          <div class="before-after">
+            ❌ Before：件名検討5分 → 書き出し敬語10分 → 本文15分 → 合計30分<br><br>
+            ✅ After：プロンプト入力20秒 → 出力確認・固有名詞修正20秒 → 合計約40秒
+          </div>
+
+          <h3>② 議事録：1回1時間 → 8分</h3>
+          <p>会議中にボイスメモアプリで録音し、文字起こしテキストをそのままChatGPTに貼り付ける。</p>
+          <span class="label">プロンプト</span>
+          <pre>以下の会議録音テキストを議事録に整理してください。
+出力形式：
+1. 参加者
+2. 議題
+3. 決定事項（箇条書き）
+4. 保留・要確認事項（箇条書き）
+5. 次回アクション（担当者・期限つき）
+
+---
+[文字起こしテキストをここに貼り付け]</pre>
+
+          <p>文字起こしは無料アプリ「Notta」か「Whisper」経由でテキスト化。貼り付けから整理完了まで8分以内に収まるようになった。</p>
+
+          <h3>③ 週報：2時間 → 15分</h3>
+          <p>週の終わりにSlackやタスク管理ツールの完了ログをコピペし、週報フォーマットに変換させる。</p>
+          <span class="label">プロンプト</span>
+          <pre>以下の今週の作業ログから週報を作成してください。
+フォーマット：
+■ 今週の成果（3点以内、箇条書き）
+■ 課題・懸念事項（あれば）
+■ 来週の予定（優先順に3〜5点）
+■ 数値サマリ（該当があれば）
+
+トーン：社内向け、簡潔・事実ベース
+
+---
+[作業ログ・完了タスクをここに貼り付け]</pre>
+
+          <div class="note">
+            <strong>ポイント：</strong>社外秘の顧客名・金額は入力しないこと。「クライアントA」「案件B」のように置き換えれば十分に機能する。
+          </div>
+
+          <h3>④ 企画書：4時間 → 30分</h3>
+          <p>まずアウトラインをAIに生成させ、各セクションに肉付けするだけ。ゼロから書く作業がなくなる。</p>
+          <span class="label">プロンプト（アウトライン生成）</span>
+          <pre>以下の条件で企画書のアウトラインをA4一枚相当で作成してください。
+・背景：社内の情報共有に時間がかかっているという課題
+・目的：社内Wikiの整備による情報共有コスト削減
+・対象：全社員（約50名）
+・予算感：月額3万円以内のSaaSツール導入
+・KPI候補も提案すること</pre>
+
+          <span class="label">プロンプト（各セクションの肉付け）</span>
+          <pre>上記アウトラインの「課題の背景と現状分析」セクションを300字で詳述してください。
+具体的な数字や想定データを含め、説得力のある文章にしてください。</pre>
+
+          <hr>
+
+          <!-- 記事中広告 -->
+          <div class="ad-slot ad-inline">記事中 広告スロット（レスポンシブ対応）</div>
+
+          <h2>Before / After：週あたり作業時間の比較</h2>
+
+          <table class="compare-table">
+            <thead>
+              <tr><th>業務</th><th>AI導入前（週）</th><th>AI導入後（週）</th><th>削減時間</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>メール</td>
+                <td class="bad">約5時間</td>
+                <td class="good">約30分</td>
+                <td class="good">▲4.5時間</td>
+              </tr>
+              <tr>
+                <td>議事録</td>
+                <td class="bad">約3時間</td>
+                <td class="good">約40分</td>
+                <td class="good">▲2.3時間</td>
+              </tr>
+              <tr>
+                <td>週報</td>
+                <td class="bad">約2時間</td>
+                <td class="good">約15分</td>
+                <td class="good">▲1.75時間</td>
+              </tr>
+              <tr>
+                <td>企画書（週換算）</td>
+                <td class="bad">約10時間</td>
+                <td class="good">約1.5時間</td>
+                <td class="good">▲8.5時間</td>
+              </tr>
+              <tr>
+                <td><strong>合計</strong></td>
+                <td class="bad"><strong>約20時間</strong></td>
+                <td class="good"><strong>約3時間</strong></td>
+                <td class="good"><strong>▲17時間</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+
+          <h2>使ったツールとコスト</h2>
+
+          <p>使ったAIツールはほぼ1つだけ——<strong>ChatGPT Plus（月額¥3,000）</strong>のみ。議事録の文字起こしにNotta無料プランを組み合わせた程度で、追加コストはゼロだ。</p>
+
+          <div class="note">
+            <strong>投資対効果の試算：</strong><br>
+            削減できた週17時間 × 時給換算2,000円 = 週34,000円相当の価値創出。<br>
+            月額¥3,000のChatGPT Plusは<strong>導入1週目で回収完了</strong>する計算になる。
+          </div>
+
+          <hr>
+
+          <!-- 関連記事（インライン） -->
+          <div class="related-inline">
+            <div class="ri-heading">この記事を読んだ人はこちらも読んでいます</div>
+            <a href="article.html">
+              <div class="ri-thumb">📧</div>
+              <div>
+                <div class="ri-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
+                <div class="ri-meta">8日前 ・ ChatGPT ・ 5分</div>
+              </div>
+            </a>
+            <a href="chatgpt-gijiroku.html">
+              <div class="ri-thumb">📋</div>
+              <div>
+                <div class="ri-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+                <div class="ri-meta">14日前 ・ ChatGPT ・ 6分</div>
+              </div>
+            </a>
+            <a href="gemini-vs-chatgpt.html">
+              <div class="ri-thumb">📊</div>
+              <div>
+                <div class="ri-title">Gemini 2.0 vs ChatGPT——ビジネス用途で選ぶならどっちか【2026年版】</div>
+                <div class="ri-meta">6日前 ・ ツール比較 ・ 6分</div>
+              </div>
+            </a>
+          </div>
+
+          <h2>よくある疑問への回答</h2>
+
+          <h3>セキュリティは大丈夫？</h3>
+          <p>ChatGPT Plus（有料プラン）はデフォルトで学習データへの組み込みがオフになっている。ただし、顧客名・個人情報・社外秘の数値は入力しないことを徹底する。「クライアントA」「担当者様」のような一般化表現で十分に機能する。社内規定でAI使用が制限されている場合はそちらに従うこと。</p>
+
+          <h3>上司にバレる？品質が下がる？</h3>
+          <p>「AIに書かせた文章は分かる」という意見があるが、プロンプトに条件を適切に渡せば出力の品質は手書きと区別がつかないレベルになる。重要なのは、<em>AIが生成した下書きを自分の目で確認・修正してから送ること</em>。最終的な判断はすべて人間が行うため、「AIが書いた」ではなく「AIを使って効率化した」という認識が正しい。</p>
+
+          <h3>品質は下がらない？</h3>
+          <p>議事録・週報・定型メールに関しては、むしろ品質が上がるケースが多い。人間は疲れると文章の精度が落ちるが、AIは一定品質を常に保つ。「漏れなく・ブレなく」整理する作業はAIの方が得意だ。</p>
+
+          <hr>
+
+          <h2>今日からすぐ始める3ステップ</h2>
+
+          <ul class="step-list">
+            <li>
+              <div class="step-num">1</div>
+              <div><strong>ChatGPT Plusに登録する</strong>（月額¥3,000）<br>無料版でも試せるが、GPT-4oの安定した品質には有料版が必要。1週間試せばコストは確実に回収できる。</div>
+            </li>
+            <li>
+              <div class="step-num">2</div>
+              <div><strong>今週のメール1本をAIで書いてみる</strong><br>まず最もハードルが低いメールから試す。この記事のプロンプトをコピペして、条件だけ書き換えれば動く。</div>
+            </li>
+            <li>
+              <div class="step-num">3</div>
+              <div><strong>うまくいったら議事録・週報に広げる</strong><br>1業務で手応えを感じたら残り3業務に展開する。全部導入しても学習コストは合計2〜3時間程度で済む。</div>
+            </li>
+          </ul>
+
+          <div class="success-box">
+            <strong>✅ 実際に浮いた時間：週17時間</strong><br>
+            メール（▲4.5h）＋議事録（▲2.3h）＋週報（▲1.75h）＋企画書（▲8.5h）＝週17時間の削減。<br>
+            その時間を新規提案・スキルアップ・早帰りに使えるようになった。
+          </div>
+
+          <hr>
+
+          <h2>まとめ</h2>
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>「書く・整理する」繰り返し業務はAIに任せると<strong>週17時間が丸ごと浮く</strong></div></li>
+            <li><div class="step-num">2</div><div>ChatGPT Plus（¥3,000/月）は<strong>1週間以内に費用対効果がプラス</strong>になる</div></li>
+            <li><div class="step-num">3</div><div>まずメール1本から始め、<strong>プロンプトのパターンを体感してから展開</strong>するのが最短ルート</div></li>
+          </ul>
+
+          <div class="cta-box">
+            <div class="cta-headline">次に読むべき記事はこちら 👇</div>
+            <p>▶ <a href="article.html">ChatGPTでビジネスメールを3分で書くプロンプト3パターン</a></p>
+            <p>▶ <a href="chatgpt-gijiroku.html">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</a></p>
+            <p style="margin-top:14px; font-size:0.82rem; color:#888;">この記事が役に立ったら「シェア」してもらえると励みになります。</p>
+          </div>
+
+        </div><!-- /post-body -->
+
+        <div class="author-box">
+          <div class="author-avatar">🤖</div>
+          <div>
+            <div class="author-name">中村 リョウ（AI時短ラボ 編集長）</div>
+            <div class="author-bio">元IT系会社員。2022年からAIツールを使った業務効率化を研究・発信。ChatGPT・Gemini・Claude の実務活用歴3年。X（@nkmr_ryo）でも毎日プロンプトを公開中。</div>
+          </div>
+        </div>
+
+        <nav class="post-nav">
+          <a href="gemini-vs-chatgpt.html">
+            <div class="nav-dir">← 前の記事</div>
+            <div class="nav-title">Gemini 2.0 vs ChatGPT——ビジネス用途で選ぶならどっちか【2026年版】</div>
+          </a>
+          <a href="chatgpt-gijiroku.html" style="text-align:right;">
+            <div class="nav-dir">次の記事 →</div>
+            <div class="nav-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+          </a>
+        </nav>
+
+      </article>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="ad-slot ad-rect">300 × 250 — サイドバー広告</div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">🔥 人気記事ランキング</div>
+        <ul class="pop-list" style="padding:0 14px;">
+          <li>
+            <span class="pop-rank gold">1</span>
+            <div class="pop-info">
+              <a href="article.html">ChatGPTでメールを3分に——プロンプト3パターン</a>
+              <div class="pop-meta">2026/5/17 ・ 閲覧 12,400</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank silver">2</span>
+            <div class="pop-info">
+              <a href="gemini-vs-chatgpt.html">Gemini vs ChatGPT——ビジネス用途比較【2026年版】</a>
+              <div class="pop-meta">2026/5/19 ・ 閲覧 8,920</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank bronze">3</span>
+            <div class="pop-info">
+              <a href="chatgpt-gijiroku.html">ChatGPTで議事録を5分で完成させる方法</a>
+              <div class="pop-meta">2026/5/11 ・ 閲覧 7,310</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">4</span>
+            <div class="pop-info">
+              <a href="prompt-guide.html">初心者向けプロンプト10パターン完全ガイド</a>
+              <div class="pop-meta">2026/5/4 ・ 閲覧 6,050</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">5</span>
+            <div class="pop-info">
+              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
+              <div class="pop-meta">2026/5/22 ・ 閲覧 5,780</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📂 カテゴリ</div>
+        <div class="cat-list">
+          <a class="cat-link" href="#">ChatGPT</a>
+          <a class="cat-link" href="#">Gemini</a>
+          <a class="cat-link" href="#">プロンプト</a>
+          <a class="cat-link" href="#">仕事術</a>
+          <a class="cat-link" href="#">議事録</a>
+          <a class="cat-link" href="#">ツール比較</a>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📅 最近の記事</div>
+        <ul class="recent-list">
+          <li class="recent-item">
+            <div class="recent-thumb">⚡</div>
+            <div class="recent-info">
+              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
+              <div class="recent-date">3日前（2026/5/22）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📊</div>
+            <div class="recent-info">
+              <a href="gemini-vs-chatgpt.html">Gemini 2.0 vs ChatGPT【2026年版】</a>
+              <div class="recent-date">6日前（2026/5/19）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📧</div>
+            <div class="recent-info">
+              <a href="article.html">ChatGPTでメールを3分に短縮する方法</a>
+              <div class="recent-date">8日前（2026/5/17）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📋</div>
+            <div class="recent-info">
+              <a href="chatgpt-gijiroku.html">議事録を5分で完成させるプロンプト</a>
+              <div class="recent-date">14日前（2026/5/11）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">🔤</div>
+            <div class="recent-info">
+              <a href="prompt-guide.html">初心者向けプロンプト10パターン</a>
+              <div class="recent-date">21日前（2026/5/4）</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📩 週刊ニュースレター</div>
+        <div class="nl-box">
+          <p>最新プロンプトや時短ネタを週1回お届け。無料です。</p>
+          <form class="nl-form" onsubmit="return false;">
+            <input type="email" placeholder="メールアドレスを入力">
+            <button type="submit">無料で登録する</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="ad-slot ad-side">160 × 600 — サイドバー広告</div>
+    </aside>
+  </div><!-- /layout -->
+
+  <!-- Bottom related -->
+  <div class="bottom-section">
+    <div class="section-heading">関連記事</div>
+    <div class="article-grid">
+      <a class="article-card" href="article.html">
+        <div class="card-thumb">📧</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">ビジネスメール</span></div>
+          <div class="card-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
+          <div class="card-meta"><span>8日前</span><span>5分</span></div>
+        </div>
+      </a>
+      <a class="article-card" href="chatgpt-gijiroku.html">
+        <div class="card-thumb">📋</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">議事録</span></div>
+          <div class="card-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+          <div class="card-meta"><span>14日前</span><span>6分</span></div>
+        </div>
+      </a>
+      <a class="article-card" href="prompt-guide.html">
+        <div class="card-thumb">🔤</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">プロンプト</span></div>
+          <div class="card-title">初心者が最初に覚えるプロンプト10パターン完全ガイド</div>
+          <div class="card-meta"><span>21日前</span><span>7分</span></div>
+        </div>
+      </a>
+      <a class="article-card" href="gemini-vs-chatgpt.html">
+        <div class="card-thumb">📊</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">ツール比較</span></div>
+          <div class="card-title">Gemini 2.0 vs ChatGPT——ビジネス用途で選ぶならどっちか【2026年版】</div>
+          <div class="card-meta"><span>6日前</span><span>6分</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="ad-bar footer-ad">
+    <span>広告</span>
+    <div class="ad-slot ad-lb">728 × 90 — フッター広告</div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-logo">AI<em>時短</em>ラボ</div>
+    <p>ChatGPT・Gemini・Claudeを使った業務効率化・時短術を毎週発信</p>
+    <nav class="footer-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">このサイトについて</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="game.html">🐍 スネークゲーム</a>
+    </nav>
+    <p class="footer-copy">© 2026 AI時短ラボ All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
