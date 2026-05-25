@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="初心者がAIで結果を出せない理由はプロンプトが曖昧なせい。役割・出力形式・トーンなど今日から使える10パターンをコピペ例つきで完全解説。">
+  <meta property="og:title" content="初心者が最初に覚えるプロンプト10パターン——コピペで使える完全ガイド | AI時短ラボ">
+  <meta property="og:type" content="article">
+  <title>初心者が最初に覚えるプロンプト10パターン——コピペで使える完全ガイド | AI時短ラボ</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+  <div class="ad-bar">
+    <span>広告</span>
+    <div class="ad-slot ad-lb">728 × 90 — Google AdSense リーダーボード</div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="index.html">AI<em>時短</em>ラボ</a>
+      <button class="nav-toggle" aria-label="メニュー" onclick="this.nextElementSibling.classList.toggle('open')">☰</button>
+      <nav class="site-nav">
+        <a href="index.html">ホーム</a>
+        <a href="index.html#chatgpt">ChatGPT</a>
+        <a href="index.html#tools">ツール比較</a>
+        <a href="index.html#jitan">仕事術</a>
+        <a href="about.html">このサイトについて</a>
+        <a href="game.html" class="nav-game">🐍 ゲーム</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="index.html">ホーム</a> › <a href="index.html#chatgpt">ChatGPT</a> › 初心者が最初に覚えるプロンプト10パターン
+  </div>
+
+  <div class="layout">
+    <main>
+      <article class="post">
+
+        <div class="article-tags">
+          <a class="tag" href="#">ChatGPT</a>
+          <a class="tag" href="#">プロンプト</a>
+          <a class="tag" href="#">初心者</a>
+          <a class="tag" href="#">時短術</a>
+        </div>
+
+        <h1 class="post-title">初心者が最初に覚えるプロンプト10パターン<br>——コピペで使える完全ガイド</h1>
+
+        <div class="post-meta">
+          <span class="author">中村 リョウ</span>
+          <span class="date-badge">2026年5月4日（21日前）</span>
+          <span>読了：約7分</span>
+          <div class="share-row">
+            <a class="share-btn share-x" href="#">X</a>
+            <a class="share-btn share-line" href="#">LINE</a>
+            <a class="share-btn share-copy" href="#">コピー</a>
+          </div>
+        </div>
+
+        <div class="post-body">
+
+          <p class="lead">「ChatGPTに聞いてみたけど、なんか的外れな回答しか返ってこなかった」——そう感じて使うのをやめてしまった人は多い。原因はAI側ではなく、ほぼ100%プロンプト（指示文）が曖昧だったせいだ。指示が雑なら出力も雑になる。逆に言えば、<strong>プロンプトさえ変えれば、AIの「使えるレベル」は一気に跳ね上がる。</strong></p>
+
+          <blockquote>「もっと詳しく書いて」「いい感じにして」——これでは、AIも困る。</blockquote>
+
+          <p>この記事では、初心者が最初に身につけるべき10種類のプロンプトパターンを、すぐコピペして使えるサンプルつきで紹介する。特別な知識は不要。読み終わったらそのまま試してほしい。</p>
+
+          <hr>
+
+          <h2>まず覚える「魔法の公式」</h2>
+
+          <p>個々のパターンを覚える前に、プロンプト全体の設計図を頭に入れておこう。質の高い指示は、次の4要素で構成されている。</p>
+
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div><strong>役割（Role）</strong>——AIに「誰として答えるか」を与える。「あなたはマーケターです」など。</div></li>
+            <li><div class="step-num">2</div><div><strong>タスク（Task）</strong>——「何をするか」を明確に。「〜を書いて」「〜を説明して」。</div></li>
+            <li><div class="step-num">3</div><div><strong>条件（Conditions）</strong>——制約・トーン・対象読者など、絞り込み情報。</div></li>
+            <li><div class="step-num">4</div><div><strong>出力形式（Output format）</strong>——箇条書き・表・文字数・見出しの有無など。</div></li>
+          </ul>
+
+          <div class="note">
+            <strong>役割 ＋ タスク ＋ 条件 ＋ 出力形式 ＝ 良いプロンプト</strong><br>
+            4つ全部を毎回入れる必要はない。ただし「タスク」だけは必ず明示すること。残りを一つ追加するごとに出力の精度が上がっていく。
+          </div>
+
+          <hr>
+
+          <h2>10パターン徹底解説</h2>
+
+          <!-- パターン1 -->
+          <h3>パターン① 役割指定——「あなたは〇〇のプロです」</h3>
+
+          <p>最も効果が大きい一手。AIに「専門家の視点」を持たせることで、回答の深さと正確さが変わる。役割を指定しないと、AIは「一般的な回答者」として無難な内容しか返さない。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>あなたはBtoBマーケティングの専門家です。
+中小企業の新規顧客獲得に使えるSNS戦略を3つ提案してください。
+各提案は200字以内で、すぐ実行できるものに絞ってください。</pre>
+
+          <p>「専門家として」と一言加えるだけで、具体性・専門用語の適切さ・提案の実用度が全て向上する。</p>
+
+          <!-- パターン2 -->
+          <h3>パターン② 出力形式指定——「箇条書きで／表で／300字で」</h3>
+
+          <p>「どんな形で返してほしいか」を指定しないと、AIは毎回バラバラな形式で答える。長文が返ってくることも多く、読み取りに時間がかかる。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>リモートワークの生産性を上げる方法を教えてください。
+出力形式：箇条書き5点、各項目は1行以内。</pre>
+
+          <span class="label">別バリエーション</span>
+          <pre>以下のデータをMarkdown形式の表にまとめてください。
+列：サービス名 / 月額料金 / 無料プランの有無 / 特徴
+
+[データをここに貼る]</pre>
+
+          <!-- パターン3 -->
+          <h3>パターン③ トーン指定——「丁寧に／簡潔に／初心者向けに」</h3>
+
+          <p>同じ内容でも「誰に向けて書くか」でトーンは大きく変わる。相手に合った言葉を使わせることで、修正の手間がほぼなくなる。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>「クラウドとは何か」を説明してください。
+対象：ITに不慣れな50代のビジネスパーソン
+トーン：専門用語を使わず、身近な例えを使って、やさしく丁寧に
+文字数：150字以内</pre>
+
+          <!-- パターン4 -->
+          <h3>パターン④ 例示——「例えば〜のように」</h3>
+
+          <p>AIに「こういうテイストで」と伝える最速の方法が、実例を見せることだ。言葉で説明するより、例を一つ示す方が精度が高い。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>ブログの導入文を書いてください。
+例えば以下のような書き出しにしてください：
+「会議のたびに、同じ議論を繰り返していませんか？」
+
+テーマ：AIを使った会議時間の短縮方法
+文字数：100字程度</pre>
+
+          <!-- パターン5 -->
+          <h3>パターン⑤ 制約付き——「〜は含めないで」</h3>
+
+          <p>「何を書くか」だけでなく「何を書かないか」を指定するのも重要なテクニック。余計な前置きや決まり文句をカットできる。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>ChatGPTの活用事例を5つ紹介してください。
+・「もちろんです！」などの前置きは不要
+・すでに有名な「文章生成」と「翻訳」は除く
+・各事例は2〜3行で具体的に</pre>
+
+          <!-- 記事中広告 -->
+          <div class="ad-slot ad-inline">記事中 広告スロット（レスポンシブ対応）</div>
+
+          <!-- パターン6 -->
+          <h3>パターン⑥ ステップ分解——「ステップに分けて説明して」</h3>
+
+          <p>複雑な手順や概念を理解したいときは、段階的な説明を求める。一気に説明させると要点が埋もれやすい。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>Googleアナリティクス4（GA4）の初期設定手順を説明してください。
+・ステップ形式（Step 1, Step 2...）で分けてください
+・各ステップは操作内容を具体的に
+・所要時間の目安も添えてください
+・前提：Webサイトはすでに持っている</pre>
+
+          <!-- パターン7 -->
+          <h3>パターン⑦ 比較——「〜と〜を比較して」</h3>
+
+          <p>2つ以上の選択肢を迷っているときは、比較させるのが最も効率的。表形式で出力させると見やすい。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>NotionとObsidianを比較してください。
+比較軸：価格 / 学習コスト / 共有のしやすさ / オフライン対応 / 個人利用への向き不向き
+出力：Markdown形式の比較表
+最後に：どちらが「ノート初心者」に向いているかを一言で結論づけてください</pre>
+
+          <!-- パターン8 -->
+          <h3>パターン⑧ 改善依頼——「以下の文章をより読みやすく改善して」</h3>
+
+          <p>自分が書いた文章をAIに磨かせるパターン。ゼロから書かせるより修正の方が速い場合も多い。「どう改善するか」の軸を指定すると精度が上がる。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>以下の文章をより読みやすく改善してください。
+改善の方針：
+・文章が長すぎる箇所は分割する
+・受け身表現を能動形に変える
+・専門用語はカタカナ表記に統一する
+・元の意味・ニュアンスは変えない
+
+[改善したい文章をここに貼る]</pre>
+
+          <!-- パターン9 -->
+          <h3>パターン⑨ 要約——「以下を3行で要約して」</h3>
+
+          <p>長文の記事・報告書・会議メモを素早く把握したいときの定番。文字数や形式を指定することで、自分の用途に合った要約が得られる。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>以下の文章を要約してください。
+形式：3行以内の箇条書き
+各行のポイント：①何が起きたか ②なぜそうなったか ③今後どうなるか
+
+[要約したいテキストをここに貼る]</pre>
+
+          <span class="label">議事録への応用例</span>
+          <pre>以下の議事録テキストから、次の3項目を抽出してください。
+①決定事項（箇条書き）
+②宿題・アクションアイテム（担当者名つき）
+③次回確認すべき未決事項
+
+[議事録テキストをここに貼る]</pre>
+
+          <!-- パターン10 -->
+          <h3>パターン⑩ 続きを書く——「以下の文章の続きを書いて」</h3>
+
+          <p>書き始めだけ自分で書いて、続きをAIに任せるパターン。書き出しを渡すことでトーン・文体が統一されやすく、「自分らしさ」が残った文章になる。</p>
+
+          <span class="label">プロンプト例</span>
+          <pre>以下の文章の続きを書いてください。
+・全体の文字数：400字程度（書き出しを含む）
+・トーン：読者に語りかけるような、やわらかいビジネス文体
+・書き出しのトーンと統一すること
+
+書き出し：
+「AIを使い始めて半年が経つ。最初は「本当に使えるの？」と半信半疑だったが、
+今では手放せないツールになっている。特に変わったのは——」</pre>
+
+          <hr>
+
+          <!-- 関連記事（インライン） -->
+          <div class="related-inline">
+            <div class="ri-heading">この記事を読んだ人はこちらも読んでいます</div>
+            <a href="article.html">
+              <div class="ri-thumb">📧</div>
+              <div>
+                <div class="ri-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
+                <div class="ri-meta">8日前 ・ ChatGPT ・ 5分</div>
+              </div>
+            </a>
+            <a href="chatgpt-gijiroku.html">
+              <div class="ri-thumb">📋</div>
+              <div>
+                <div class="ri-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+                <div class="ri-meta">14日前 ・ ChatGPT ・ 6分</div>
+              </div>
+            </a>
+            <a href="ai-jitan.html">
+              <div class="ri-thumb">⚡</div>
+              <div>
+                <div class="ri-title">週20時間の業務をAIで週3時間に圧縮した全フロー公開</div>
+                <div class="ri-meta">3日前 ・ 仕事術 ・ 8分</div>
+              </div>
+            </a>
+          </div>
+
+          <h2>よくある失敗パターンと対策</h2>
+
+          <p>プロンプトを使い始めの頃にやりがちなミスを整理しておく。一つでも当てはまれば、すぐ修正できる。</p>
+
+          <table class="compare-table">
+            <thead>
+              <tr><th>よくある失敗</th><th>具体的な症状</th><th>改善策</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>タスクが曖昧</td><td class="bad">「〜について教えて」だけ</td><td class="good">「〜を箇条書き5点で説明して」と形式まで指定</td></tr>
+              <tr><td>一度に詰め込みすぎ</td><td class="bad">要件が10個以上ある</td><td class="good">3〜5点に絞る。複数回に分けて聞く</td></tr>
+              <tr><td>前提情報がない</td><td class="bad">「初心者向けに書いて」だけ</td><td class="good">「IT知識ゼロの40代会社員向け」と対象者を明示</td></tr>
+              <tr><td>文字数指定なし</td><td class="bad">長すぎ／短すぎの出力</td><td class="good">「200字以内」「500字程度」と明示する</td></tr>
+              <tr><td>否定語の乱用</td><td class="bad">「〜しないで〜しないで〜するな」</td><td class="good">「〜の代わりに〜してください」と肯定形で伝える</td></tr>
+            </tbody>
+          </table>
+
+          <div class="note">
+            <strong>一番多い失敗：「いい感じに」「よしなに」「ちゃんと」。</strong><br>
+            AIに「いい感じ」の定義は分からない。何を「いい」とするのかを、言葉で定義してあげることが上達の近道だ。
+          </div>
+
+          <hr>
+
+          <h2>自分専用のプロンプトライブラリを作る方法</h2>
+
+          <p>10パターンを覚えたら、次のステップは「自分専用のプロンプト集」を作ることだ。同じ業務に毎回ゼロから書くのは時間の無駄。一度うまくいったプロンプトは必ず記録しておこう。</p>
+
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div><strong>NotionやGoogleドキュメントに専用ページを作る</strong>——業務カテゴリ別（メール・議事録・企画書など）にタブで分けると使いやすい。</div></li>
+            <li><div class="step-num">2</div><div><strong>テンプレート化する</strong>——固有名詞や数字を「[担当者名]」「[日付]」のように変数化しておくと使い回しが楽になる。</div></li>
+            <li><div class="step-num">3</div><div><strong>使用頻度でランキングする</strong>——週に3回以上使うプロンプトはショートカットや定型文ツールに登録すると更に速い。</div></li>
+            <li><div class="step-num">4</div><div><strong>失敗プロンプトも残す</strong>——「これは使えなかった」というメモも財産。同じ失敗を繰り返さなくなる。</div></li>
+          </ul>
+
+          <div class="success-box">
+            <strong>✅ プロンプトライブラリの実例</strong><br>
+            メール3種・議事録2種・週報1種・企画書アウトライン1種——この7本を手元に置くだけで、週あたり5〜6時間が浮くようになった。最初の1週間は意識して記録を続けるだけでいい。
+          </div>
+
+          <hr>
+
+          <h2>まとめ</h2>
+
+          <ul class="step-list">
+            <li><div class="step-num">1</div><div>プロンプトの基本公式は<strong>「役割 ＋ タスク ＋ 条件 ＋ 出力形式」</strong>。まずこれだけ覚える。</div></li>
+            <li><div class="step-num">2</div><div>10パターンは全部覚えなくていい。<strong>自分の業務でよく使う3〜4パターンを先に習熟する。</strong></div></li>
+            <li><div class="step-num">3</div><div>うまくいったプロンプトは必ず記録。<strong>自分専用ライブラリを育てていくのが最大の時短</strong>になる。</div></li>
+            <li><div class="step-num">4</div><div>失敗してもAIを責めない。<strong>指示を見直すだけで、ほぼ解決する。</strong></div></li>
+          </ul>
+
+          <div class="cta-box">
+            <div class="cta-headline">次に読むべき記事はこちら 👇</div>
+            <p>▶ <a href="article.html">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</a></p>
+            <p>▶ <a href="chatgpt-gijiroku.html">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</a></p>
+            <p style="margin-top:14px; font-size:0.82rem; color:#888;">この記事が役に立ったら「シェア」してもらえると励みになります。</p>
+          </div>
+
+        </div><!-- /post-body -->
+
+        <div class="author-box">
+          <div class="author-avatar">🤖</div>
+          <div>
+            <div class="author-name">中村 リョウ（AI時短ラボ 編集長）</div>
+            <div class="author-bio">元IT系会社員。2022年からAIツールを使った業務効率化を研究・発信。ChatGPT・Gemini・Claude の実務活用歴3年。X（@nkmr_ryo）でも毎日プロンプトを公開中。</div>
+          </div>
+        </div>
+
+        <nav class="post-nav">
+          <a href="chatgpt-gijiroku.html">
+            <div class="nav-dir">← 前の記事</div>
+            <div class="nav-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+          </a>
+          <a href="article.html" style="text-align:right;">
+            <div class="nav-dir">次の記事 →</div>
+            <div class="nav-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
+          </a>
+        </nav>
+
+      </article>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="ad-slot ad-rect">300 × 250 — サイドバー広告</div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">🔥 人気記事ランキング</div>
+        <ul class="pop-list" style="padding:0 14px;">
+          <li>
+            <span class="pop-rank gold">1</span>
+            <div class="pop-info">
+              <a href="article.html">ChatGPTでメールを3分に——プロンプト3パターン</a>
+              <div class="pop-meta">2026/5/17 ・ 閲覧 12,400</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank silver">2</span>
+            <div class="pop-info">
+              <a href="gemini-vs-chatgpt.html">Gemini vs ChatGPT——ビジネス用途比較【2026年版】</a>
+              <div class="pop-meta">2026/5/19 ・ 閲覧 8,920</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank bronze">3</span>
+            <div class="pop-info">
+              <a href="chatgpt-gijiroku.html">ChatGPTで議事録を5分で完成させる方法</a>
+              <div class="pop-meta">2026/5/11 ・ 閲覧 7,310</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">4</span>
+            <div class="pop-info">
+              <a href="prompt-guide.html">初心者向けプロンプト10パターン完全ガイド</a>
+              <div class="pop-meta">2026/5/4 ・ 閲覧 6,050</div>
+            </div>
+          </li>
+          <li>
+            <span class="pop-rank">5</span>
+            <div class="pop-info">
+              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
+              <div class="pop-meta">2026/5/22 ・ 閲覧 5,780</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📂 カテゴリ</div>
+        <div class="cat-list">
+          <a class="cat-link" href="#">ChatGPT</a>
+          <a class="cat-link" href="#">Gemini</a>
+          <a class="cat-link" href="#">プロンプト</a>
+          <a class="cat-link" href="#">仕事術</a>
+          <a class="cat-link" href="#">議事録</a>
+          <a class="cat-link" href="#">ツール比較</a>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📅 最近の記事</div>
+        <ul class="recent-list">
+          <li class="recent-item">
+            <div class="recent-thumb">⚡</div>
+            <div class="recent-info">
+              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
+              <div class="recent-date">3日前（2026/5/22）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📊</div>
+            <div class="recent-info">
+              <a href="gemini-vs-chatgpt.html">Gemini 2.0 vs ChatGPT【2026年版】</a>
+              <div class="recent-date">6日前（2026/5/19）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📧</div>
+            <div class="recent-info">
+              <a href="article.html">ChatGPTでメールを3分に短縮する方法</a>
+              <div class="recent-date">8日前（2026/5/17）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📋</div>
+            <div class="recent-info">
+              <a href="chatgpt-gijiroku.html">議事録を5分で完成させるプロンプト</a>
+              <div class="recent-date">14日前（2026/5/11）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">🔤</div>
+            <div class="recent-info">
+              <a href="prompt-guide.html">初心者向けプロンプト10パターン</a>
+              <div class="recent-date">21日前（2026/5/4）</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">📩 週刊ニュースレター</div>
+        <div class="nl-box">
+          <p>最新プロンプトや時短ネタを週1回お届け。無料です。</p>
+          <form class="nl-form" onsubmit="return false;">
+            <input type="email" placeholder="メールアドレスを入力">
+            <button type="submit">無料で登録する</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="ad-slot ad-side">160 × 600 — サイドバー広告</div>
+    </aside>
+  </div><!-- /layout -->
+
+  <!-- Bottom related -->
+  <div class="bottom-section">
+    <div class="section-heading">関連記事</div>
+    <div class="article-grid">
+      <a class="article-card" href="article.html">
+        <div class="card-thumb">📧</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">ビジネスメール</span></div>
+          <div class="card-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
+          <div class="card-meta"><span>8日前</span><span>5分</span></div>
+        </div>
+      </a>
+      <a class="article-card" href="chatgpt-gijiroku.html">
+        <div class="card-thumb">📋</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">議事録</span></div>
+          <div class="card-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
+          <div class="card-meta"><span>14日前</span><span>6分</span></div>
+        </div>
+      </a>
+      <a class="article-card" href="gemini-vs-chatgpt.html">
+        <div class="card-thumb">📊</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">ツール比較</span></div>
+          <div class="card-title">Gemini 2.0 vs ChatGPT——ビジネス用途で選ぶならどっちか【2026年版】</div>
+          <div class="card-meta"><span>6日前</span><span>6分</span></div>
+        </div>
+      </a>
+      <a class="article-card" href="ai-jitan.html">
+        <div class="card-thumb">⚡</div>
+        <div class="card-body">
+          <div class="card-cats"><span class="card-cat">仕事術</span></div>
+          <div class="card-title">週20時間の業務をAIで週3時間に圧縮した全フロー公開</div>
+          <div class="card-meta"><span>3日前</span><span>8分</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="ad-bar footer-ad">
+    <span>広告</span>
+    <div class="ad-slot ad-lb">728 × 90 — フッター広告</div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-logo">AI<em>時短</em>ラボ</div>
+    <p>ChatGPT・Gemini・Claudeを使った業務効率化・時短術を毎週発信</p>
+    <nav class="footer-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">このサイトについて</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="game.html">🐍 スネークゲーム</a>
+    </nav>
+    <p class="footer-copy">© 2026 AI時短ラボ All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
