@@ -556,5 +556,12 @@ hr.divider { border: none; border-top: 1px solid var(--hr); margin: 44px 0; }
 .footer-nav a:hover { color: var(--white); }
 .footer-copy { font-size: 0.65rem; opacity: 0.25; }
 
+/* ── Single-column layout (about, privacy — no sidebar) ── */
+.layout-single {
+  max-width: var(--read-w);
+  margin: 0 auto;
+  padding: 0 24px 72px;
+}
+
 /* index padding */
 .index-main { padding-top: 32px; }
