@@ -3,146 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ChatGPT・Gemini・Claude などAIツールを使った業務効率化・時短術を発信するメディア。プロンプト実例・ツール比較・副業活用など毎週更新。">
-  <meta property="og:title" content="AI時短ラボ — ChatGPT・AIで仕事を速くするメディア">
-  <meta property="og:description" content="AIツールで業務を時短。プロンプト実例・ツール比較・副業活用を毎週発信。">
+  <meta name="description" content="節約手帖は、固定費削減・食費管理・ふるさと納税・投資入門など、家計を整えるための実践的な情報を発信するブログです。">
+  <meta property="og:title" content="節約手帖 — 家計を整える、暮らしを変える">
+  <meta property="og:description" content="固定費削減・食費管理・ふるさと納税・投資入門。家計を整えるための実践情報。">
   <meta property="og:type" content="website">
-  <title>AI時短ラボ — ChatGPT・AIで仕事を速くするメディア</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <title>節約手帖 — 家計を整える、暮らしを変える</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📒</text></svg>">
   <link rel="stylesheet" href="blog.css">
 </head>
 <body>
 
-  <!-- Top ad -->
   <div class="ad-bar">
     <span>広告</span>
-    <div class="ad-slot ad-lb">728 × 90 — Google AdSense リーダーボード</div>
+    <div class="ad-slot ad-lb">Google AdSense — 728 × 90</div>
   </div>
 
-  <!-- Header -->
   <header class="site-header">
     <div class="header-inner">
-      <a class="site-logo" href="index.html">AI<em>時短</em>ラボ</a>
-      <button class="nav-toggle" aria-label="メニュー" onclick="this.nextElementSibling.classList.toggle('open')">☰</button>
+      <a class="site-logo" href="index.html">
+        節約手帖
+        <small>家計を整える、暮らしを変える</small>
+      </a>
+      <button class="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">≡</button>
       <nav class="site-nav">
         <a href="index.html">ホーム</a>
-        <a href="index.html#chatgpt">ChatGPT</a>
-        <a href="index.html#tools">ツール比較</a>
-        <a href="index.html#jitan">仕事術</a>
-        <a href="about.html">このサイトについて</a>
-        <a href="game.html" class="nav-game">🐍 ゲーム</a>
+        <a href="index.html#koteihi">固定費</a>
+        <a href="index.html#shokuhi">食費</a>
+        <a href="index.html#invest">投資入門</a>
+        <a href="about.html">このブログについて</a>
+        <a href="game.html">🐍 ゲーム</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero: featured article -->
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-content">
-        <span class="hero-label">🔥 注目記事</span>
-        <h1 class="hero-title">週20時間の業務を<br>AIで週3時間に圧縮した<br>全フローを公開します</h1>
-        <p class="hero-excerpt">メール・議事録・週報・企画書——4つの定型業務に使えるプロンプトと自動化フローをそのまま公開。再現性100%で試せます。</p>
-        <p class="hero-meta">中村 リョウ ・ 2026年5月22日 ・ 読了8分</p>
-        <a class="hero-btn" href="ai-jitan.html">記事を読む →</a>
+        <div class="hero-eyebrow">特集記事</div>
+        <h1 class="hero-title">固定費を見直すだけで<br>月2万円節約できた話</h1>
+        <p class="hero-excerpt">スマホ・保険・サブスク——この3つを1日で整理したら、毎月の支出が2万円以上減りました。具体的な手順と金額をそのまま公開します。</p>
+        <p class="hero-meta">山田 はるか ・ 2026年5月20日 ・ 読了7分</p>
+        <a class="hero-link" href="koteihi.html">記事を読む →</a>
       </div>
-      <div class="hero-img">⚡</div>
+      <div class="hero-img">📒</div>
     </div>
   </section>
 
-  <!-- Main layout -->
   <div class="layout">
+    <main class="index-main">
 
-    <!-- Main column -->
-    <main class="index-pad">
+      <!-- 最新記事グリッド -->
+      <div class="section-heading">最新記事</div>
+      <div class="article-grid" style="margin-bottom:40px;">
 
-      <!-- Recent articles grid -->
-      <div class="section-heading" id="chatgpt">最新記事</div>
-      <div class="article-grid" style="margin-bottom:36px;">
-
-        <a class="article-card" href="article.html">
-          <div class="card-thumb">📧</div>
+        <a class="article-card" href="shokuhi.html">
+          <div class="card-thumb">🛒</div>
           <div class="card-body">
-            <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">メール</span></div>
-            <div class="card-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
-            <div class="card-meta"><span>8日前</span><span>5分</span></div>
+            <div class="card-cat">食費管理</div>
+            <div class="card-title">食費を月3万→1.5万にした3つの買い物ルール</div>
+            <div class="card-meta">14日前 ・ 6分</div>
           </div>
         </a>
 
-        <a class="article-card" href="chatgpt-gijiroku.html">
-          <div class="card-thumb">📋</div>
+        <a class="article-card" href="furusato.html">
+          <div class="card-thumb">📮</div>
           <div class="card-body">
-            <div class="card-cats"><span class="card-cat">ChatGPT</span><span class="card-cat">・</span><span class="card-cat">議事録</span></div>
-            <div class="card-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
-            <div class="card-meta"><span>14日前</span><span>6分</span></div>
+            <div class="card-cat">ふるさと納税</div>
+            <div class="card-title">ふるさと納税で年10万円分お得になる正しいやり方</div>
+            <div class="card-meta">21日前 ・ 8分</div>
           </div>
         </a>
 
-        <a class="article-card" href="prompt-guide.html">
-          <div class="card-thumb">🔤</div>
+        <a class="article-card" href="ideco-nisa.html">
+          <div class="card-thumb">📈</div>
           <div class="card-body">
-            <div class="card-cats"><span class="card-cat">プロンプト</span><span class="card-cat">・</span><span class="card-cat">入門</span></div>
-            <div class="card-title">初心者が最初に覚えるプロンプト10パターン——コピペで使える完全ガイド</div>
-            <div class="card-meta"><span>21日前</span><span>7分</span></div>
+            <div class="card-cat">投資入門</div>
+            <div class="card-title">iDeCoとNISA、どっちから始めるべきか【2026年版】</div>
+            <div class="card-meta">28日前 ・ 7分</div>
           </div>
         </a>
 
       </div>
 
-      <!-- Article list -->
-      <div class="section-heading" id="tools">すべての記事</div>
+      <!-- 全記事リスト -->
+      <div class="section-heading" id="koteihi">すべての記事</div>
       <ul class="article-list">
 
         <li>
-          <a class="ali" href="ai-jitan.html">
-            <div class="ali-thumb">⚡</div>
+          <a class="ali" href="koteihi.html">
+            <div class="ali-thumb">📱</div>
             <div>
-              <div class="ali-cats"><span class="ali-cat">仕事術</span><span class="ali-cat">・</span><span class="ali-cat">ChatGPT</span></div>
-              <div class="ali-title">週20時間の業務をAIで週3時間に圧縮した全フロー公開</div>
-              <div class="ali-meta">中村 リョウ ・ 2026年5月22日 ・ 読了8分</div>
+              <div class="ali-cat">固定費削減</div>
+              <div class="ali-title">固定費を見直すだけで月2万円節約できた話</div>
+              <div class="ali-meta">山田 はるか ・ 2026年5月20日 ・ 読了7分</div>
             </div>
           </a>
         </li>
 
         <li>
-          <a class="ali" href="gemini-vs-chatgpt.html">
-            <div class="ali-thumb">📊</div>
+          <a class="ali" href="shokuhi.html" id="shokuhi">
+            <div class="ali-thumb">🛒</div>
             <div>
-              <div class="ali-cats"><span class="ali-cat">ツール比較</span><span class="ali-cat">・</span><span class="ali-cat">Gemini</span></div>
-              <div class="ali-title">Gemini 2.0 vs ChatGPT——ビジネス用途で選ぶならどっちか【2026年版】</div>
-              <div class="ali-meta">中村 リョウ ・ 2026年5月19日 ・ 読了6分</div>
+              <div class="ali-cat">食費管理</div>
+              <div class="ali-title">食費を月3万→1.5万にした3つの買い物ルール</div>
+              <div class="ali-meta">山田 はるか ・ 2026年5月11日 ・ 読了6分</div>
             </div>
           </a>
         </li>
 
         <li>
-          <a class="ali" href="article.html">
-            <div class="ali-thumb">📧</div>
+          <a class="ali" href="furusato.html">
+            <div class="ali-thumb">📮</div>
             <div>
-              <div class="ali-cats"><span class="ali-cat">ChatGPT</span><span class="ali-cat">・</span><span class="ali-cat">メール時短</span></div>
-              <div class="ali-title">なぜこのメール1本に30分かかる？ChatGPTで3分に変えた手順をそのまま公開</div>
-              <div class="ali-meta">中村 リョウ ・ 2026年5月17日 ・ 読了5分</div>
+              <div class="ali-cat">ふるさと納税</div>
+              <div class="ali-title">ふるさと納税で年10万円分お得になる正しいやり方</div>
+              <div class="ali-meta">山田 はるか ・ 2026年5月4日 ・ 読了8分</div>
             </div>
           </a>
         </li>
 
         <li>
-          <a class="ali" href="chatgpt-gijiroku.html">
-            <div class="ali-thumb">📋</div>
+          <a class="ali" href="ideco-nisa.html" id="invest">
+            <div class="ali-thumb">📈</div>
             <div>
-              <div class="ali-cats"><span class="ali-cat">ChatGPT</span><span class="ali-cat">・</span><span class="ali-cat">議事録</span></div>
-              <div class="ali-title">ChatGPTで議事録を5分で完成させる方法【無料テンプレ付き】</div>
-              <div class="ali-meta">中村 リョウ ・ 2026年5月11日 ・ 読了6分</div>
+              <div class="ali-cat">投資入門</div>
+              <div class="ali-title">iDeCoとNISA、どっちから始めるべきか【2026年版】</div>
+              <div class="ali-meta">山田 はるか ・ 2026年4月27日 ・ 読了7分</div>
             </div>
           </a>
         </li>
 
         <li>
-          <a class="ali" href="prompt-guide.html">
-            <div class="ali-thumb">🔤</div>
+          <a class="ali" href="beginner.html">
+            <div class="ali-thumb">📝</div>
             <div>
-              <div class="ali-cats"><span class="ali-cat">プロンプト</span><span class="ali-cat">・</span><span class="ali-cat">入門</span></div>
-              <div class="ali-title">初心者が最初に覚えるプロンプト10パターン——コピペで使える完全ガイド</div>
-              <div class="ali-meta">中村 リョウ ・ 2026年5月4日 ・ 読了7分</div>
+              <div class="ali-cat">節約入門</div>
+              <div class="ali-title">節約初心者が最初の1ヶ月でやること【完全チェックリスト】</div>
+              <div class="ali-meta">山田 はるか ・ 2026年4月20日 ・ 読了5分</div>
             </div>
           </a>
         </li>
@@ -154,144 +152,135 @@
     <!-- Sidebar -->
     <aside class="sidebar">
 
-      <!-- サイドバー広告 -->
-      <div class="ad-slot ad-rect">300 × 250 — サイドバー広告</div>
+      <div class="ad-slot ad-rect">300 × 250 — 広告</div>
 
-      <!-- 人気記事 -->
-      <div class="sidebar-section">
-        <div class="sidebar-heading">🔥 人気記事ランキング</div>
-        <ul class="pop-list" style="padding:0 14px;">
+      <div class="sidebar-block">
+        <div class="sidebar-heading">人気記事</div>
+        <ul class="pop-list" style="padding:0 16px;">
           <li>
-            <span class="pop-rank gold">1</span>
+            <span class="pop-rank">1</span>
             <div class="pop-info">
-              <a href="article.html">ChatGPTでメールを3分に——プロンプト3パターン公開</a>
-              <div class="pop-meta">2026/5/17 ・ 閲覧 12,400</div>
+              <a href="koteihi.html">固定費を見直すだけで月2万円節約できた話</a>
+              <div class="pop-meta">2026/5/20 ・ 閲覧 9,840</div>
             </div>
           </li>
           <li>
-            <span class="pop-rank silver">2</span>
+            <span class="pop-rank">2</span>
             <div class="pop-info">
-              <a href="gemini-vs-chatgpt.html">Gemini vs ChatGPT——ビジネスで選ぶならどっちか</a>
-              <div class="pop-meta">2026/5/19 ・ 閲覧 8,920</div>
+              <a href="furusato.html">ふるさと納税で年10万円分お得になる方法</a>
+              <div class="pop-meta">2026/5/4 ・ 閲覧 7,210</div>
             </div>
           </li>
           <li>
-            <span class="pop-rank bronze">3</span>
+            <span class="pop-rank">3</span>
             <div class="pop-info">
-              <a href="chatgpt-gijiroku.html">ChatGPTで議事録を5分で完成させる方法</a>
-              <div class="pop-meta">2026/5/11 ・ 閲覧 7,310</div>
+              <a href="ideco-nisa.html">iDeCoとNISA、どっちから始めるべきか</a>
+              <div class="pop-meta">2026/4/27 ・ 閲覧 6,580</div>
             </div>
           </li>
           <li>
             <span class="pop-rank">4</span>
             <div class="pop-info">
-              <a href="prompt-guide.html">初心者向けプロンプト10パターン完全ガイド</a>
-              <div class="pop-meta">2026/5/4 ・ 閲覧 6,050</div>
+              <a href="shokuhi.html">食費を月3万→1.5万にした買い物ルール</a>
+              <div class="pop-meta">2026/5/11 ・ 閲覧 5,910</div>
             </div>
           </li>
           <li>
             <span class="pop-rank">5</span>
             <div class="pop-info">
-              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
-              <div class="pop-meta">2026/5/22 ・ 閲覧 5,780</div>
+              <a href="beginner.html">節約初心者が最初の1ヶ月でやること</a>
+              <div class="pop-meta">2026/4/20 ・ 閲覧 4,330</div>
             </div>
           </li>
         </ul>
       </div>
 
-      <!-- カテゴリ -->
-      <div class="sidebar-section">
-        <div class="sidebar-heading">📂 カテゴリ</div>
-        <div class="cat-list">
-          <a class="cat-link" href="#">ChatGPT</a>
-          <a class="cat-link" href="#">Gemini</a>
-          <a class="cat-link" href="#">Claude</a>
-          <a class="cat-link" href="#">プロンプト</a>
-          <a class="cat-link" href="#jitan">仕事術</a>
-          <a class="cat-link" href="#">議事録</a>
-          <a class="cat-link" href="#">副業</a>
-          <a class="cat-link" href="#tools">ツール比較</a>
+      <div class="sidebar-block">
+        <div class="sidebar-heading">カテゴリ</div>
+        <div class="cat-list" style="padding:14px 16px;">
+          <a class="cat-link" href="#">固定費削減</a>
+          <a class="cat-link" href="#">食費管理</a>
+          <a class="cat-link" href="#">ふるさと納税</a>
+          <a class="cat-link" href="#">投資入門</a>
+          <a class="cat-link" href="#">節約入門</a>
+          <a class="cat-link" href="#">保険</a>
+          <a class="cat-link" href="#">スマホ代</a>
+          <a class="cat-link" href="#">サブスク整理</a>
         </div>
       </div>
 
-      <!-- 最近の記事 -->
-      <div class="sidebar-section">
-        <div class="sidebar-heading">📅 最近の記事</div>
+      <div class="sidebar-block">
+        <div class="sidebar-heading">最近の記事</div>
         <ul class="recent-list">
           <li class="recent-item">
-            <div class="recent-thumb">⚡</div>
+            <div class="recent-thumb">📱</div>
             <div class="recent-info">
-              <a href="ai-jitan.html">週20時間をAIで3時間に圧縮した全フロー</a>
-              <div class="recent-date">3日前（2026/5/22）</div>
+              <a href="koteihi.html">固定費を見直すだけで月2万円節約できた話</a>
+              <div class="recent-date">5日前（2026/5/20）</div>
             </div>
           </li>
           <li class="recent-item">
-            <div class="recent-thumb">📊</div>
+            <div class="recent-thumb">🛒</div>
             <div class="recent-info">
-              <a href="gemini-vs-chatgpt.html">Gemini 2.0 vs ChatGPT【2026年版】</a>
-              <div class="recent-date">6日前（2026/5/19）</div>
-            </div>
-          </li>
-          <li class="recent-item">
-            <div class="recent-thumb">📧</div>
-            <div class="recent-info">
-              <a href="article.html">ChatGPTでメールを3分に短縮する方法</a>
-              <div class="recent-date">8日前（2026/5/17）</div>
-            </div>
-          </li>
-          <li class="recent-item">
-            <div class="recent-thumb">📋</div>
-            <div class="recent-info">
-              <a href="chatgpt-gijiroku.html">議事録を5分で完成させるプロンプト</a>
+              <a href="shokuhi.html">食費を月3万→1.5万にした買い物ルール</a>
               <div class="recent-date">14日前（2026/5/11）</div>
             </div>
           </li>
           <li class="recent-item">
-            <div class="recent-thumb">🔤</div>
+            <div class="recent-thumb">📮</div>
             <div class="recent-info">
-              <a href="prompt-guide.html">初心者向けプロンプト10パターン</a>
+              <a href="furusato.html">ふるさと納税で年10万円分お得になる方法</a>
               <div class="recent-date">21日前（2026/5/4）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📈</div>
+            <div class="recent-info">
+              <a href="ideco-nisa.html">iDeCoとNISA、どっちから始めるべきか</a>
+              <div class="recent-date">28日前（2026/4/27）</div>
+            </div>
+          </li>
+          <li class="recent-item">
+            <div class="recent-thumb">📝</div>
+            <div class="recent-info">
+              <a href="beginner.html">節約初心者が最初の1ヶ月でやること</a>
+              <div class="recent-date">35日前（2026/4/20）</div>
             </div>
           </li>
         </ul>
       </div>
 
-      <!-- メルマガ -->
-      <div class="sidebar-section">
-        <div class="sidebar-heading">📩 週刊ニュースレター</div>
+      <div class="sidebar-block">
+        <div class="sidebar-heading">ニュースレター</div>
         <div class="nl-box">
-          <p>最新プロンプトや時短ネタを週1回お届け。無料です。</p>
+          <p>毎週1本、節約・家計の実践情報をお届けします。無料です。</p>
           <form class="nl-form" onsubmit="return false;">
-            <input type="email" placeholder="メールアドレスを入力">
-            <button type="submit">無料で登録する</button>
+            <input type="email" placeholder="メールアドレス">
+            <button type="submit">登録する（無料）</button>
           </form>
         </div>
       </div>
 
-      <!-- サイドバー下部広告 -->
-      <div class="ad-slot ad-side">160 × 600 — サイドバー広告</div>
+      <div class="ad-slot ad-side">160 × 600 — 広告</div>
 
     </aside>
-
-  </div><!-- /layout -->
-
-  <!-- Bottom ad -->
-  <div class="ad-bar footer-ad">
-    <span>広告</span>
-    <div class="ad-slot ad-lb">728 × 90 — フッター広告</div>
   </div>
 
-  <!-- Footer -->
+  <div class="ad-bar --bottom">
+    <span>広告</span>
+    <div class="ad-slot ad-lb">Google AdSense — 728 × 90</div>
+  </div>
+
   <footer class="site-footer">
-    <div class="footer-logo">AI<em>時短</em>ラボ</div>
-    <p>ChatGPT・Gemini・Claudeを使った業務効率化・時短術を毎週発信</p>
+    <div class="footer-logo">節約手帖</div>
+    <div class="footer-tagline">家計を整える、暮らしを変える</div>
     <nav class="footer-nav">
       <a href="index.html">ホーム</a>
-      <a href="about.html">このサイトについて</a>
+      <a href="about.html">このブログについて</a>
       <a href="privacy.html">プライバシーポリシー</a>
-      <a href="game.html">🐍 スネークゲーム</a>
+      <a href="game.html">🐍 ゲーム</a>
     </nav>
-    <p class="footer-copy">© 2026 AI時短ラボ All rights reserved.</p>
+    <p class="footer-copy">© 2026 節約手帖 All rights reserved.</p>
   </footer>
 
 </body>
