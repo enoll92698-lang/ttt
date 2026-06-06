@@ -122,7 +122,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-3">📧 毎日届く雑学メルマガ</h2>
           <p className="text-gray-400 mb-6">毎朝1つの雑学をメールでお届けします。無料登録受付中！</p>
-          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={e => e.preventDefault()}>
+          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" action="#">
             <input
               type="email"
               placeholder="メールアドレスを入力"
